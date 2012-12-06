@@ -26,19 +26,48 @@
 
 - (void)viewDidLoad
 {
-    self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-    __block float offset = 20;
-    
-    for(id object in page.sortedChildren){
-        Page *childPage = object;
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, offset, 280, 40)];
-        [button setBackgroundColor:[UIColor colorWithRed:0.153 green:0.561 blue:0.565 alpha:1.000]];
-        [button.titleLabel setFont:[UIFont fontWithName:@"Palatino-Bold" size:21.0]];
-        [button setTitle:childPage.title forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
-        offset += 60;
-    };
+    if (page == nil) {
+        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+    } else{
+        self.navigationItem.title = page.title;
+    }
+    if([page.children count] > 0){
+        __block float offset = 16;
+        NSUInteger count = 0;
+        UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+        for(id object in page.sortedChildren){
+            Page *childPage = object;
+            float xOffset = 20 + (23 * [Page offsetForIndex:count]);
+            NSString *title = childPage.title;
+            CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(xOffset, offset, constrainedSize.width + 30, constrainedSize.height + 12)];
+            [button setBackgroundColor:childPage.color];
+            [button setTitleEdgeInsets:UIEdgeInsetsMake(6, 15, 6, 15)];
+            [button.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+            [button.titleLabel setNumberOfLines:0];
+            [button.titleLabel setTextAlignment:UITextAlignmentCenter];
+            [button.titleLabel setFont:titleFont];
+            [button setTitle:childPage.title forState:UIControlStateNormal];
+            [button setTag:count];
+            [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:button];
+            offset += button.frame.size.height + 20;
+            count ++;
+        };
+        UIScrollView *scrollView = (UIScrollView *)self.view;
+        CGSize contentSize = scrollView.contentSize;
+        contentSize.height = offset;
+        [scrollView setContentSize:contentSize];
+        NSLog(@"%@", [NSString stringWithFormat:@"background_%d.jpg",[page.backgroundNumber intValue]]);
+        [scrollView setBackgroundColor:page.backgroundColor];
+    } else {
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
+        NSString *html = [NSString stringWithFormat:@"<html><head><link rel='stylesheet' type='text/css' href='file://%@'></head><body>%@<div class='clearfix'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"], page.text];
+
+        
+        [webView loadHTMLString:html baseURL:nil];
+        [self.view addSubview:webView];
+    }
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -52,6 +81,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
 }
 
@@ -135,7 +165,9 @@
 
 -(IBAction) didPressPageButton:(id)sender{
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:NULL];
-    UIViewController *viewController = [story instantiateViewControllerWithIdentifier:@"PageViewController"];
+    PageViewController *viewController = [story instantiateViewControllerWithIdentifier:@"PageViewController"];
+    Page *childPage = [page.sortedChildren objectAtIndex:[sender tag]];
+    viewController.page = childPage;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
