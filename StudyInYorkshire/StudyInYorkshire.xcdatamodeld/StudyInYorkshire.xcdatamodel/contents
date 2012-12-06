@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Page" representedClassName="Page" syncable="YES">
+        <attribute name="backgroundNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="colorB" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="colorG" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="colorR" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="headerNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageUID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Page" inverseName="parent" inverseEntity="Page" syncable="YES"/>
         <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="children" inverseEntity="Page" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Page" positionX="-5364" positionY="855" width="128" height="120"/>
+        <element name="Page" positionX="-5364" positionY="855" width="128" height="240"/>
     </elements>
 </model>

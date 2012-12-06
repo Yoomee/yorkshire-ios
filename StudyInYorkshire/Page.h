@@ -13,16 +13,25 @@
 
 @interface Page : NSManagedObject
 
+@property (nonatomic, retain) NSString * slug;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * slug;
+@property (nonatomic, retain) NSNumber * position;
+@property (nonatomic, retain) NSNumber * backgroundNumber;
+@property (nonatomic, retain) NSNumber * colorR;
+@property (nonatomic, retain) NSNumber * colorG;
+@property (nonatomic, retain) NSNumber * colorB;
 @property (nonatomic, retain) NSSet *children;
 @property (nonatomic, retain) Page *parent;
 @end
 
 @interface Page (CoreDataGeneratedAccessors)
 
++(int)offsetForIndex:(NSUInteger)index;
+
 -(NSArray *)sortedChildren;
+-(UIColor *)color;
+-(UIColor *)backgroundColor;
 
 - (void)addChildrenObject:(Page *)value;
 - (void)removeChildrenObject:(Page *)value;
