@@ -585,11 +585,13 @@
 		5BDE08CF166F61AD007438DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yoomee";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StudyInYorkshire/StudyInYorkshire-Prefix.pch";
 				INFOPLIST_FILE = "StudyInYorkshire/StudyInYorkshire-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2DEBC683-B95E-4E82-B9DD-AD155904426C";
 				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
