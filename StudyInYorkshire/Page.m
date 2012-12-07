@@ -15,18 +15,64 @@
 @dynamic slug;
 @dynamic text;
 @dynamic title;
+@dynamic viewName;
+@dynamic imageUID;
 @dynamic position;
 @dynamic backgroundNumber;
+@dynamic headerNumber;
 @dynamic colorR;
 @dynamic colorG;
 @dynamic colorB;
 @dynamic children;
 @dynamic parent;
 
+-(BOOL)root{
+    return [self.slug isEqualToString:@"mobile-app"];
+}
+
+-(NSString *)html{
+    NSString *output = [NSString stringWithFormat:@"<html><head><link rel='stylesheet' type='text/css' href='file://%@'></head><body>",[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"]];
+    if (![self.viewName isEqualToString:@"university"]){
+        output = [NSString stringWithFormat:@"%@<h1 class='page-title'>%@</h1>",output,self.title];
+    }
+    return [NSString stringWithFormat:@"%@%@<div class='clearfix'></div></body></html>",output,self.text];
+}
+
+-(UIColor *)navigationBarColor{
+    if(self.root){
+        return [UIColor colorWithWhite:0 alpha:0.0];
+    } else if ([self.viewName isEqualToString:@"basic"]) {
+        return self.color;
+    } else {
+        return [UIColor colorWithWhite:0 alpha:0.5];
+    }
+}
+
 -(NSArray *)sortedChildren {
     NSSortDescriptor *sortNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortNameDescriptor, nil];
     return [self.children sortedArrayUsingDescriptors:sortDescriptors];
+}
+
+-(UIImage *)headerImage{
+    if ([self.headerNumber intValue] > 0) {
+        NSLog(@"header_%d.jpg",[self.headerNumber intValue]);
+        return [UIImage imageNamed:[NSString stringWithFormat:@"header_%d.jpg",[self.headerNumber intValue]]];
+    } else if (self.parent){
+        return self.parent.headerImage;
+    }else{
+        return [UIImage imageNamed:@"header_1.jpg"];
+    }
+}
+
+-(UIImage *)image{
+    if (self.imageUID) {
+        NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.imageUID];
+        NSLog(@"%@",path);
+        return [UIImage imageWithContentsOfFile:path];
+    } else {
+        return nil;
+    }
 }
 
 -(UIColor *)color{

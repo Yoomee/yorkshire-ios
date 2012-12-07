@@ -9,6 +9,7 @@
 #import "PageViewController.h"
 #import "AppDelegate.h"
 #import "Page.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation PageViewController
 
@@ -31,10 +32,13 @@
     } else{
         self.navigationItem.title = page.title;
     }
+    
+    UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+
     if([page.children count] > 0){
+        UIScrollView *scrollView = (UIScrollView *)self.view;
         __block float offset = 16;
         NSUInteger count = 0;
-        UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
         for(id object in page.sortedChildren){
             Page *childPage = object;
             float xOffset = 20 + (23 * [Page offsetForIndex:count]);
@@ -54,22 +58,50 @@
             offset += button.frame.size.height + 20;
             count ++;
         };
-        UIScrollView *scrollView = (UIScrollView *)self.view;
         CGSize contentSize = scrollView.contentSize;
         contentSize.height = offset;
         [scrollView setContentSize:contentSize];
-        NSLog(@"%@", [NSString stringWithFormat:@"background_%d.jpg",[page.backgroundNumber intValue]]);
         [scrollView setBackgroundColor:page.backgroundColor];
     } else {
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
-        NSString *html = [NSString stringWithFormat:@"<html><head><link rel='stylesheet' type='text/css' href='file://%@'></head><body>%@<div class='clearfix'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"], page.text];
-
-        
-        [webView loadHTMLString:html baseURL:nil];
+        [self.view setBackgroundColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
+        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320,110)];
+        [headerImageView setImage:page.headerImage];
+        [self.view addSubview:headerImageView];
+        float yOffset = 110;
+        if(page.image){
+            UIView *imageWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, 110, 320,140)];
+            [imageWrapper setBackgroundColor:[UIColor whiteColor]];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 280,100)];
+            [imageView setContentMode:UIViewContentModeScaleAspectFit];
+            [imageView setImage:page.image];
+            [imageWrapper addSubview:imageView];
+            [self.view addSubview:imageWrapper];
+            yOffset += 140;
+        }
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, 320, 257)];
+        [webView setDelegate:self];
+        [webView loadHTMLString:page.html baseURL:nil];
         [self.view addSubview:webView];
     }
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView
+{   
+    aWebView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
+    CGRect frame = aWebView.frame;
+    frame.size.width = 320;
+    frame.size.height = 1;
+    aWebView.frame = frame;
+    frame.size.height = aWebView.scrollView.contentSize.height + 20;
+    if((frame.size.height + frame.origin.y) < 367){
+        frame.size.height = 367 - frame.origin.y;
+    }
+    aWebView.frame = frame;       // Set the scrollView contentHeight back to the frame itself.
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    CGSize contentSize = scrollView.contentSize;
+    contentSize.height = frame.size.height + frame.origin.y;
+    [scrollView setContentSize:contentSize];
 }
 
 - (void)viewDidUnload
@@ -81,12 +113,34 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES];
+    UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context,
+                                   [page.navigationBarColor CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    [navBar setBarStyle:UIBarStyleBlackTranslucent];
+    [navBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
+    [navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleFont,UITextAttributeFont, [UIColor colorWithWhite:0 alpha:0], UITextAttributeTextShadowColor,nil]];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    if (page.root){
+        [self.navigationController setNavigationBarHidden:YES];
+    }else {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+
     [super viewDidAppear:animated];
 }
 
@@ -169,6 +223,9 @@
     Page *childPage = [page.sortedChildren objectAtIndex:[sender tag]];
     viewController.page = childPage;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+-(IBAction) didPressBackButton:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

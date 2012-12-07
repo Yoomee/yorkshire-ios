@@ -12,12 +12,13 @@
 
 @class Page;
 
-@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate>
+@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate>
 
 @property (nonatomic, strong) Page *page;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 -(IBAction)didPressPageButton:(id)sender;
+-(IBAction)didPressBackButton:(id)sender;
 
 @end

@@ -16,8 +16,11 @@
 @property (nonatomic, retain) NSString * slug;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * viewName;
+@property (nonatomic, retain) NSString * imageUID;
 @property (nonatomic, retain) NSNumber * position;
 @property (nonatomic, retain) NSNumber * backgroundNumber;
+@property (nonatomic, retain) NSNumber * headerNumber;
 @property (nonatomic, retain) NSNumber * colorR;
 @property (nonatomic, retain) NSNumber * colorG;
 @property (nonatomic, retain) NSNumber * colorB;
@@ -32,6 +35,11 @@
 -(NSArray *)sortedChildren;
 -(UIColor *)color;
 -(UIColor *)backgroundColor;
+-(UIColor *)navigationBarColor;
+-(UIImage *)headerImage;
+-(UIImage *)image;
+-(BOOL)root;
+-(NSString *)html;
 
 - (void)addChildrenObject:(Page *)value;
 - (void)removeChildrenObject:(Page *)value;
