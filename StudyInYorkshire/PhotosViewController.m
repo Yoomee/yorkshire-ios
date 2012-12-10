@@ -7,6 +7,7 @@
 //
 
 #import "PhotosViewController.h"
+#import "PhotoViewController.h"
 #import "AppDelegate.h"
 #import "Photo.h"
 
@@ -82,6 +83,18 @@
         return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
     } else {
         return YES;
+    }
+}
+
+- (void) didPressImageButton:(id) sender{
+    [self performSegueWithIdentifier:@"showPhoto" sender:sender];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"showPhoto"]){
+        PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
+        [photoViewController setPhotos:[[self fetchedResultsController] fetchedObjects]];
+        [photoViewController setCenterPageIdx:[sender tag]];
     }
 }
 

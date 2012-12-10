@@ -27,9 +27,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="XOX-ra-iLg"/>
+                    <connections>
+                        <segue destination="cnV-Do-laL" kind="push" identifier="showPhoto" id="V8f-Gd-hi4"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1179" y="0.0"/>
+        </scene>
+        <scene sceneID="vDf-O8-WHg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Prp-mm-3LK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="cnV-Do-laL" customClass="PhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pts-8d-O2j">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Abn-oI-Wte"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1726" y="0.0"/>
         </scene>
         <scene sceneID="15">
             <objects>
@@ -97,6 +114,9 @@
                 <relationship kind="action" name="didPressBackButton:"/>
                 <relationship kind="action" name="didPressPageButton:"/>
             </relationships>
+        </class>
+        <class className="PhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
         </class>
         <class className="PhotosViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosViewController.h"/>
