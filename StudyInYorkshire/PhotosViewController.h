@@ -1,5 +1,5 @@
 //
-//  PageViewController.h
+//  PhotosViewController.h
 //  StudyInYorkshire
 //
 //  Created by Matthew Atkins on 05/12/2012.
@@ -9,15 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@class Page;
+@interface PhotosViewController : UIViewController <NSFetchedResultsControllerDelegate>
 
-@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate>
-
-@property (nonatomic, strong) Page *page;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
--(IBAction)didPressPageButton:(id)sender;
--(IBAction)didPressBackButton:(id)sender;
 
 @end

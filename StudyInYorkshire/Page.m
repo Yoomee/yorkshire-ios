@@ -56,7 +56,6 @@
 
 -(UIImage *)headerImage{
     if ([self.headerNumber intValue] > 0) {
-        NSLog(@"header_%d.jpg",[self.headerNumber intValue]);
         return [UIImage imageNamed:[NSString stringWithFormat:@"header_%d.jpg",[self.headerNumber intValue]]];
     } else if (self.parent){
         return self.parent.headerImage;
@@ -68,7 +67,6 @@
 -(UIImage *)image{
     if (self.imageUID) {
         NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.imageUID];
-        NSLog(@"%@",path);
         return [UIImage imageWithContentsOfFile:path];
     } else {
         return nil;
