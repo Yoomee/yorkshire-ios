@@ -134,12 +134,13 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     // If the expected store doesn't exist, copy the default store.
-    if (![fileManager fileExistsAtPath:[storeURL path]]) {
+    #warning uncomment this if before submission
+    //if (![fileManager fileExistsAtPath:[storeURL path]]) { Always replace for now
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
         if (defaultStorePath) {
             [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
         }
-    }
+    //}
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
