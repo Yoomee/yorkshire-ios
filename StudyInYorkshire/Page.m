@@ -20,6 +20,8 @@
 @dynamic position;
 @dynamic backgroundNumber;
 @dynamic headerNumber;
+@dynamic latitude;
+@dynamic longitude;
 @dynamic colorR;
 @dynamic colorG;
 @dynamic colorB;

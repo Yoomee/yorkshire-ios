@@ -21,6 +21,8 @@
 @property (nonatomic, retain) NSNumber * position;
 @property (nonatomic, retain) NSNumber * backgroundNumber;
 @property (nonatomic, retain) NSNumber * headerNumber;
+@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSNumber * colorR;
 @property (nonatomic, retain) NSNumber * colorG;
 @property (nonatomic, retain) NSNumber * colorB;
