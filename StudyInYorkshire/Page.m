@@ -22,11 +22,28 @@
 @dynamic headerNumber;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic favourite;
 @dynamic colorR;
 @dynamic colorG;
 @dynamic colorB;
 @dynamic children;
+@dynamic favouritedAt;
 @dynamic parent;
+
+-(BOOL)favourited{
+    return [self.favourite boolValue];
+}
+
+- (void)setFavourited:(BOOL)newFavourited {
+    self.favourite = [NSNumber numberWithBool:newFavourited];
+}
+-(NSString *)favouriteButtonTitle{
+    if (self.favourited){
+        return @"Remove from favourites";
+    } else {
+        return @"Add to favourites";
+    }
+}
 
 -(BOOL)root{
     return [self.slug isEqualToString:@"mobile-app"];

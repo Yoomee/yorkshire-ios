@@ -12,6 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation PageViewController
+@synthesize favouriteButton = _favouriteButton;
+@synthesize actionButtons = _actionButtons;
 
 @synthesize page;
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -41,6 +43,11 @@
         NSUInteger count = 0;
         for(id object in page.sortedChildren){
             Page *childPage = object;
+            if(childPage.favourited){
+                NSLog(@"FAVOURITE");
+            } else {
+                NSLog(@"NOT FAVOURITE");
+            }
             float xOffset = 20 + (23 * [Page offsetForIndex:count]);
             NSString *title = childPage.title;
             CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
@@ -82,6 +89,25 @@
         [webView setDelegate:self];
         [webView loadHTMLString:page.html baseURL:nil];
         [self.view addSubview:webView];
+        
+        UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, 320, 120)];
+        
+        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        shareButton.frame = CGRectMake(20, 0, 280, 40);
+        [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
+        [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+        [actionButtons addSubview:shareButton];
+        
+        UIButton *favouriteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        favouriteButton.frame = CGRectMake(20, 60, 280, 40);
+        [favouriteButton setTitle:page.favouriteButtonTitle forState:UIControlStateNormal];
+        [favouriteButton addTarget:self action:@selector(didPressFavouriteButton:) forControlEvents:UIControlEventTouchUpInside];
+        self.favouriteButton = favouriteButton;
+        [actionButtons addSubview:favouriteButton];
+        [actionButtons setBackgroundColor:[UIColor whiteColor]];
+        [actionButtons setHidden:YES];
+        [self.view addSubview:actionButtons];
+        self.actionButtons = actionButtons;
     }
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -101,11 +127,17 @@
     UIScrollView *scrollView = (UIScrollView *)self.view;
     CGSize contentSize = scrollView.contentSize;
     contentSize.height = frame.size.height + frame.origin.y;
+    CGRect actionButtonsFrame = self.actionButtons.frame;
+    actionButtonsFrame.origin.y = contentSize.height;
+    [self.actionButtons setFrame:actionButtonsFrame];
+    [self.actionButtons setHidden:NO];
+    contentSize.height += self.actionButtons.frame.size.height;
     [scrollView setContentSize:contentSize];
 }
 
 - (void)viewDidUnload
 {
+    [self setFavouriteButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -226,6 +258,14 @@
 }
 -(IBAction) didPressBackButton:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void) didPressFavouriteButton:(id)sender {
+    page.favourited = !page.favourited;
+    page.favouritedAt = [NSDate date];
+    [self.favouriteButton setTitle:page.favouriteButtonTitle forState:UIControlStateNormal];
+    if (self.managedObjectContext == nil) 
+        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext]; 
+    [self.managedObjectContext save:nil];
 }
 
 @end

@@ -44,6 +44,7 @@
 		5B66FF08166FBCCB00BA4C65 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B66FF07166FBCCB00BA4C65 /* Icon.png */; };
 		5B66FF0A166FBCCE00BA4C65 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B66FF09166FBCCD00BA4C65 /* Icon@2x.png */; };
 		5B66FF0C166FBCE500BA4C65 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B66FF0B166FBCE500BA4C65 /* Icon-72.png */; };
+		5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */; };
 		5BA294DE167221DA00DE10BD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294DD167221DA00DE10BD /* assets */; };
 		5BA294FA1672239900DE10BD /* header_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294E01672239900DE10BD /* header_1.jpg */; };
 		5BA294FB1672239900DE10BD /* header_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294E11672239900DE10BD /* header_10.jpg */; };
@@ -152,6 +153,8 @@
 		5B66FF07166FBCCB00BA4C65 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Icons/Icon.png; sourceTree = "<group>"; };
 		5B66FF09166FBCCD00BA4C65 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icons/Icon@2x.png"; sourceTree = "<group>"; };
 		5B66FF0B166FBCE500BA4C65 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Icons/Icon-72.png"; sourceTree = "<group>"; };
+		5B9CEDA11678B4BB00B93934 /* FavouritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritesViewController.h; sourceTree = "<group>"; };
+		5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesViewController.m; sourceTree = "<group>"; };
 		5BA294DD167221DA00DE10BD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		5BA294E01672239900DE10BD /* header_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header_1.jpg; sourceTree = "<group>"; };
 		5BA294E11672239900DE10BD /* header_10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header_10.jpg; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 				5BB51392167645CC007014E8 /* PhotoViewController.m */,
 				5B19598916777E0200F96191 /* MapViewController.h */,
 				5B19598A16777E0200F96191 /* MapViewController.m */,
+				5B9CEDA11678B4BB00B93934 /* FavouritesViewController.h */,
+				5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -734,6 +739,7 @@
 				5BB5137A1676355F007014E8 /* NIToolbarPhotoViewController.m in Sources */,
 				5BB51393167645CC007014E8 /* PhotoViewController.m in Sources */,
 				5B19598B16777E0200F96191 /* MapViewController.m in Sources */,
+				5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

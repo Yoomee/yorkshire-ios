@@ -62,6 +62,7 @@
                         <segue destination="5fL-2Z-Pab" kind="relationship" relationship="viewControllers" id="26"/>
                         <segue destination="7LB-4h-zqG" kind="relationship" relationship="viewControllers" id="27"/>
                         <segue destination="VT9-1Y-LkP" kind="relationship" relationship="viewControllers" id="NAG-gu-cWZ"/>
+                        <segue destination="7nh-Xw-GlL" kind="relationship" relationship="viewControllers" id="dnp-r1-Hfn"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -130,6 +131,38 @@
             </objects>
             <point key="canvasLocation" x="1179" y="615"/>
         </scene>
+        <scene sceneID="nRZ-oB-R1e">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="601-3l-jp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="TPc-gQ-DxM" customClass="FavouritesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WH9-3N-TjQ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Favourite" id="BWe-8d-CFh">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="2" kind="push" identifier="showPage" id="epd-3i-kk4"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TPc-gQ-DxM" id="R1B-VP-319"/>
+                            <outlet property="delegate" destination="TPc-gQ-DxM" id="iR0-mj-f1B"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="SDT-KU-MDm"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1179" y="1286"/>
+        </scene>
         <scene sceneID="xDT-Qm-T5I">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqm-my-bXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,13 +181,35 @@
             </objects>
             <point key="canvasLocation" x="653" y="615"/>
         </scene>
+        <scene sceneID="vNH-0x-dyD">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d4J-vQ-AF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="7nh-Xw-GlL" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favourites" image="icon_favourites.png" id="yS7-pb-MfA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="69q-0F-TDj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TPc-gQ-DxM" kind="relationship" relationship="rootViewController" id="AR5-4O-U6m"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="653" y="1286"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="icon_favourites.png" width="30" height="30"/>
         <image name="icon_home.png" width="30" height="30"/>
         <image name="icon_map.png" width="30" height="30"/>
         <image name="icon_photo.png" width="30" height="30"/>
     </resources>
     <classes>
+        <class className="FavouritesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavouritesViewController.h"/>
+        </class>
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>

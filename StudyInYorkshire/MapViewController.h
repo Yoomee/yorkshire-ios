@@ -13,6 +13,8 @@
 @interface MapViewController : UIViewController <NSFetchedResultsControllerDelegate,MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) NSArray *universities;
+@property (nonatomic, strong) NSMutableArray *annotations;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 

@@ -13,6 +13,8 @@
 
 @implementation MapViewController
 @synthesize mapView;
+@synthesize universities =_universities;
+@synthesize annotations = _annotations;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 
@@ -48,14 +50,17 @@
 {
     [super viewDidLoad];
     CLLocationCoordinate2D coordinate;
-    coordinate.latitude = 53.975;
-    coordinate.longitude = -1.202;
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 150000, 150000);
+    coordinate.latitude = 53.653;
+    coordinate.longitude = -0.986;
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 120000, 120000);
     [mapView setRegion:region animated:NO];
-    
+        
     Page *universitiesPage = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+    self.universities = universitiesPage.sortedChildren;
+    self.annotations = [[NSMutableArray alloc] initWithCapacity:[self.universities count]];
+
     __block int pageIdx = 0;
-    for(id object in universitiesPage.sortedChildren){
+    for(id object in self.universities){
         Page *university = object;
         CLLocationCoordinate2D uniCoord;
         uniCoord.latitude = [university.latitude floatValue];
@@ -63,8 +68,8 @@
         MKPointAnnotation *uniPoint = [[MKPointAnnotation alloc] init];
         uniPoint.coordinate = uniCoord;
         uniPoint.title = university.title;
-        uniPoint.subtitle = [NSString stringWithFormat:@"%d",pageIdx];
         [mapView addAnnotation:uniPoint]; 
+        [self.annotations addObject:uniPoint];
         pageIdx++;
     };
     
@@ -149,7 +154,7 @@
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"university"];
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
-    annotationView.tag = [[annotation subtitle] intValue];
+    annotationView.tag = [self.annotations indexOfObject:annotation];
     annotationView.enabled = YES;
     annotationView.canShowCallout = YES;
     return annotationView;
@@ -161,8 +166,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"showUniversity"]){
-        Page *universitiesPage = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-        Page *university = (Page *)[universitiesPage.sortedChildren objectAtIndex:[sender tag]];
+        Page *university = (Page *)[self.universities objectAtIndex:[sender tag]];
         PageViewController *pageViewController = segue.destinationViewController;
         pageViewController.page = university;
     }

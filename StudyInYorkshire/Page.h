@@ -23,9 +23,11 @@
 @property (nonatomic, retain) NSNumber * headerNumber;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSNumber * favourite;
 @property (nonatomic, retain) NSNumber * colorR;
 @property (nonatomic, retain) NSNumber * colorG;
 @property (nonatomic, retain) NSNumber * colorB;
+@property (nonatomic, retain) NSDate * favouritedAt;
 @property (nonatomic, retain) NSSet *children;
 @property (nonatomic, retain) Page *parent;
 @end
@@ -41,6 +43,9 @@
 -(UIImage *)headerImage;
 -(UIImage *)image;
 -(BOOL)root;
+-(BOOL)favourited;
+- (void)setFavourited:(BOOL)newFavourited;
+-(NSString *)favouriteButtonTitle;
 -(NSString *)html;
 
 - (void)addChildrenObject:(Page *)value;
