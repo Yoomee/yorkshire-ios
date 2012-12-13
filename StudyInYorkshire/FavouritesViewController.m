@@ -14,7 +14,7 @@
 @implementation FavouritesViewController
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
-
+@synthesize noFavouritesLabel = _noFavouritesLabel;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -37,7 +37,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.view.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
+    self.tableView.separatorColor = [UIColor clearColor];
+    
+    UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.bounds];
+    noFavourites.text = @"You haven't added\nany favourites yet";
+    [noFavourites setTextAlignment:UITextAlignmentCenter];
+    [noFavourites setNumberOfLines:2];
+    [noFavourites setBackgroundColor:[UIColor clearColor]];
+    [noFavourites setTextColor:[UIColor whiteColor]];
+    [noFavourites setFont:[UIFont systemFontOfSize:18.0f]];
+    [self.view addSubview:noFavourites];
+    self.noFavouritesLabel = noFavourites;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -58,6 +69,11 @@
     [self.navigationController.navigationBar setHidden:YES];
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
+    if([[self.fetchedResultsController fetchedObjects] count] == 0){
+        [self.noFavouritesLabel setHidden:NO];
+    } else {
+        [self.noFavouritesLabel setHidden:YES];        
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -114,6 +130,15 @@
     // Configure the cell...
     Page *page = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = page.title;
+    [cell.textLabel setBackgroundColor:page.navigationBarColor];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    [cell.textLabel setFont:[UIFont fontWithName:@"Palatino-Bold" size:21.0]];
+    UIView *bg = [[UIView alloc] initWithFrame:cell.backgroundView.frame];
+    [bg setBackgroundColor:page.navigationBarColor];
+    cell.backgroundView = bg;
+    UIView *selectedBg = [[UIView alloc] initWithFrame:cell.backgroundView.frame];
+    [selectedBg setBackgroundColor:page.navigationBarColor];
+    cell.selectedBackgroundView = selectedBg;
     return cell;
 }
 

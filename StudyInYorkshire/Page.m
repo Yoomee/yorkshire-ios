@@ -60,10 +60,8 @@
 -(UIColor *)navigationBarColor{
     if(self.root){
         return [UIColor colorWithWhite:0 alpha:0.0];
-    } else if ([self.viewName isEqualToString:@"basic"]) {
-        return self.color;
     } else {
-        return [UIColor colorWithWhite:0 alpha:0.5];
+        return self.color;
     }
 }
 

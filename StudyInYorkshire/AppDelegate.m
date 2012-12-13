@@ -21,6 +21,15 @@
 {    
     // Override point for customization after application launch.
     [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context,[[UIColor blackColor] CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [[UITabBar appearance] setBackgroundImage:img];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
     return YES;
 }
 							
@@ -134,13 +143,12 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     // If the expected store doesn't exist, copy the default store.
-    #warning uncomment this if before submission
-    //if (![fileManager fileExistsAtPath:[storeURL path]]) { Always replace for now
+    if (![fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
         if (defaultStorePath) {
             [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
         }
-    //}
+    }
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

@@ -45,6 +45,7 @@
 		5B66FF0A166FBCCE00BA4C65 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B66FF09166FBCCD00BA4C65 /* Icon@2x.png */; };
 		5B66FF0C166FBCE500BA4C65 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B66FF0B166FBCE500BA4C65 /* Icon-72.png */; };
 		5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */; };
+		5B9CEDC31678EA8700B93934 /* ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9CEDC21678EA8600B93934 /* ActionButton.m */; };
 		5BA294DE167221DA00DE10BD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294DD167221DA00DE10BD /* assets */; };
 		5BA294FA1672239900DE10BD /* header_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294E01672239900DE10BD /* header_1.jpg */; };
 		5BA294FB1672239900DE10BD /* header_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA294E11672239900DE10BD /* header_10.jpg */; };
@@ -155,6 +156,8 @@
 		5B66FF0B166FBCE500BA4C65 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Icons/Icon-72.png"; sourceTree = "<group>"; };
 		5B9CEDA11678B4BB00B93934 /* FavouritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritesViewController.h; sourceTree = "<group>"; };
 		5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesViewController.m; sourceTree = "<group>"; };
+		5B9CEDC11678EA8500B93934 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
+		5B9CEDC21678EA8600B93934 /* ActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionButton.m; sourceTree = "<group>"; };
 		5BA294DD167221DA00DE10BD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		5BA294E01672239900DE10BD /* header_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header_1.jpg; sourceTree = "<group>"; };
 		5BA294E11672239900DE10BD /* header_10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header_10.jpg; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 				5B20B1AB1670F9AB005C7856 /* Page.m */,
 				5BB5130C1675FF2B007014E8 /* Photo.h */,
 				5BB5130D1675FF2B007014E8 /* Photo.m */,
+				5B9CEDC11678EA8500B93934 /* ActionButton.h */,
+				5B9CEDC21678EA8600B93934 /* ActionButton.m */,
 				5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */,
 			);
 			name = Models;
@@ -740,6 +745,7 @@
 				5BB51393167645CC007014E8 /* PhotoViewController.m in Sources */,
 				5B19598B16777E0200F96191 /* MapViewController.m in Sources */,
 				5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */,
+				5B9CEDC31678EA8700B93934 /* ActionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

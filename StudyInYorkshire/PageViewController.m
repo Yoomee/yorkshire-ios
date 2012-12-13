@@ -9,6 +9,7 @@
 #import "PageViewController.h"
 #import "AppDelegate.h"
 #import "Page.h"
+#import "ActionButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation PageViewController
@@ -43,11 +44,6 @@
         NSUInteger count = 0;
         for(id object in page.sortedChildren){
             Page *childPage = object;
-            if(childPage.favourited){
-                NSLog(@"FAVOURITE");
-            } else {
-                NSLog(@"NOT FAVOURITE");
-            }
             float xOffset = 20 + (23 * [Page offsetForIndex:count]);
             NSString *title = childPage.title;
             CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
@@ -61,6 +57,14 @@
             [button setTitle:childPage.title forState:UIControlStateNormal];
             [button setTag:count];
             [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
+            
+            button.layer.masksToBounds = NO;
+            button.layer.shadowColor = [UIColor blackColor].CGColor;
+            button.layer.shadowOpacity = 0.5;
+            button.layer.shadowRadius = 10;
+            button.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+            
+            
             [self.view addSubview:button];
             offset += button.frame.size.height + 20;
             count ++;
@@ -92,14 +96,12 @@
         
         UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, 320, 120)];
         
-        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        shareButton.frame = CGRectMake(20, 0, 280, 40);
+        UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(20, 0, 280, 40)];
         [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
         [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
         [actionButtons addSubview:shareButton];
         
-        UIButton *favouriteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        favouriteButton.frame = CGRectMake(20, 60, 280, 40);
+        UIButton *favouriteButton = [[ActionButton alloc] initWithFrame:CGRectMake(20, 60, 280, 40)];
         [favouriteButton setTitle:page.favouriteButtonTitle forState:UIControlStateNormal];
         [favouriteButton addTarget:self action:@selector(didPressFavouriteButton:) forControlEvents:UIControlEventTouchUpInside];
         self.favouriteButton = favouriteButton;
@@ -107,6 +109,7 @@
         [actionButtons setBackgroundColor:[UIColor whiteColor]];
         [actionButtons setHidden:YES];
         [self.view addSubview:actionButtons];
+        
         self.actionButtons = actionButtons;
     }
     [super viewDidLoad];
@@ -120,7 +123,7 @@
     frame.size.height = 1;
     aWebView.frame = frame;
     frame.size.height = aWebView.scrollView.contentSize.height + 20;
-    if((frame.size.height + frame.origin.y) < 367){
+    if((frame.size.height + frame.origin.y) < 247){
         frame.size.height = 367 - frame.origin.y;
     }
     aWebView.frame = frame;       // Set the scrollView contentHeight back to the frame itself.
