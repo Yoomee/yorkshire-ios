@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "SHKConfiguration.h"
+#import "YUShareKitConfigurator.h"
 #import "Page.h"
 #import "PageViewController.h"
+#import "SHKFacebook.h"
 
 @implementation AppDelegate
 
@@ -30,7 +33,17 @@
     UIGraphicsEndImageContext();
     [[UITabBar appearance] setBackgroundImage:img];
     [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
+    
+    DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    
+    [self performSelector:@selector(flushOfflineQueue) withObject:nil afterDelay:0.5];
     return YES;
+}
+
+- (void)flushOfflineQueue
+{	
+	[SHK flushOfflineQueue];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

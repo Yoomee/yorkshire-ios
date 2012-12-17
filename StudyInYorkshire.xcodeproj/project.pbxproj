@@ -26,6 +26,15 @@
 		5B20B1C91670FC64005C7856 /* background_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BA1670FC64005C7856 /* background_7.jpg */; };
 		5B20B1CA1670FC64005C7856 /* background_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BB1670FC64005C7856 /* background_8.jpg */; };
 		5B20B1CB1670FC64005C7856 /* background_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BC1670FC64005C7856 /* background_9.jpg */; };
+		5B4794A6167A440200CE0D41 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47945D167A43A200CE0D41 /* libShareKit.a */; };
+		5B4794A7167A447F00CE0D41 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B47945F167A43A200CE0D41 /* ShareKit.bundle */; };
+		5B4794A9167A44F600CE0D41 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */; };
+		5B4794AB167A450200CE0D41 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794AA167A450200CE0D41 /* Security.framework */; };
+		5B4794AD167A451800CE0D41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794AC167A451800CE0D41 /* MessageUI.framework */; };
+		5B4794AF167A452500CE0D41 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794AE167A452500CE0D41 /* Twitter.framework */; };
+		5B4794B1167A453200CE0D41 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794B0167A453200CE0D41 /* CoreFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5B4794C7167A486000CE0D41 /* YUShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */; };
+		5B4794C9167A49F800CE0D41 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794C8167A49F800CE0D41 /* CoreLocation.framework */; };
 		5B60AFCE16778DC700A35818 /* StudyInYorkshire.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */; };
 		5B66FED9166F704600BA4C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B66FED8166F704600BA4C65 /* CoreData.framework */; };
 		5B66FEE4166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */; };
@@ -114,6 +123,51 @@
 		5BDE08C6166F61AD007438DD /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE08C5166F61AD007438DD /* PhotosViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5B47945A167A43A200CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1D6058910D05DD3D006BFB54;
+			remoteInfo = "Demo App";
+		};
+		5B47945C167A43A200CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AB5342E1552AADD00171BCE;
+			remoteInfo = "Static Library";
+		};
+		5B47945E167A43A200CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AB5360F1552E26800171BCE;
+			remoteInfo = "Resource Bundle";
+		};
+		5B479460167A43A200CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A0F9246156BA2A0009CB40A;
+			remoteInfo = "Static Library Core";
+		};
+		5B4794A2167A43D400CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AB5342D1552AADD00171BCE;
+			remoteInfo = "Static Library";
+		};
+		5B4794A4167A43DB00CE0D41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
+			remoteInfo = "Resource Bundle";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5B19598616777D6D00F96191 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5B19598916777E0200F96191 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -136,6 +190,15 @@
 		5B20B1BA1670FC64005C7856 /* background_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_7.jpg; sourceTree = "<group>"; };
 		5B20B1BB1670FC64005C7856 /* background_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_8.jpg; sourceTree = "<group>"; };
 		5B20B1BC1670FC64005C7856 /* background_9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_9.jpg; sourceTree = "<group>"; };
+		5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
+		5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5B4794AA167A450200CE0D41 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5B4794AC167A451800CE0D41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		5B4794AE167A452500CE0D41 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		5B4794B0167A453200CE0D41 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		5B4794C5167A486000CE0D41 /* YUShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUShareKitConfigurator.h; sourceTree = "<group>"; };
+		5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUShareKitConfigurator.m; sourceTree = "<group>"; };
+		5B4794C8167A49F800CE0D41 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = StudyInYorkshire.sqlite; sourceTree = "<group>"; };
 		5B66FED8166F704600BA4C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5B66FEE3166F751800BA4C65 /* StudyInYorkshire.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudyInYorkshire.xcdatamodel; sourceTree = "<group>"; };
@@ -281,6 +344,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4794C9167A49F800CE0D41 /* CoreLocation.framework in Frameworks */,
+				5B4794B1167A453200CE0D41 /* CoreFoundation.framework in Frameworks */,
+				5B4794AF167A452500CE0D41 /* Twitter.framework in Frameworks */,
+				5B4794AD167A451800CE0D41 /* MessageUI.framework in Frameworks */,
+				5B4794AB167A450200CE0D41 /* Security.framework in Frameworks */,
+				5B4794A9167A44F600CE0D41 /* SystemConfiguration.framework in Frameworks */,
+				5B4794A6167A440200CE0D41 /* libShareKit.a in Frameworks */,
 				5B19598716777D6D00F96191 /* MapKit.framework in Frameworks */,
 				5BA295151672280600DE10BD /* QuartzCore.framework in Frameworks */,
 				5B66FED9166F704600BA4C65 /* CoreData.framework in Frameworks */,
@@ -315,6 +385,17 @@
 			path = Backgrounds;
 			sourceTree = "<group>";
 		};
+		5B479430167A43A100CE0D41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B47945B167A43A200CE0D41 /* ShareKitDemo.app */,
+				5B47945D167A43A200CE0D41 /* libShareKit.a */,
+				5B47945F167A43A200CE0D41 /* ShareKit.bundle */,
+				5B479461167A43A200CE0D41 /* libShareKitCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5B66FE9C166F6E6100BA4C65 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +422,8 @@
 				5BB5130D1675FF2B007014E8 /* Photo.m */,
 				5B9CEDC11678EA8500B93934 /* ActionButton.h */,
 				5B9CEDC21678EA8600B93934 /* ActionButton.m */,
+				5B4794C5167A486000CE0D41 /* YUShareKitConfigurator.h */,
+				5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */,
 				5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */,
 			);
 			name = Models;
@@ -528,10 +611,12 @@
 		5BDE0896166F61AC007438DD = {
 			isa = PBXGroup;
 			children = (
-				5BB5131B167634BC007014E8 /* Nimbus */,
+				5B4794C8167A49F800CE0D41 /* CoreLocation.framework */,
+				5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */,
 				5BDE08AB166F61AC007438DD /* StudyInYorkshire */,
 				5BDE08A4166F61AC007438DD /* Frameworks */,
 				5BDE08A2166F61AC007438DD /* Products */,
+				5BB5131B167634BC007014E8 /* Nimbus */,
 			);
 			sourceTree = "<group>";
 		};
@@ -546,6 +631,11 @@
 		5BDE08A4166F61AC007438DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B4794B0167A453200CE0D41 /* CoreFoundation.framework */,
+				5B4794AE167A452500CE0D41 /* Twitter.framework */,
+				5B4794AC167A451800CE0D41 /* MessageUI.framework */,
+				5B4794AA167A450200CE0D41 /* Security.framework */,
+				5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */,
 				5B19598616777D6D00F96191 /* MapKit.framework */,
 				5BA295141672280600DE10BD /* QuartzCore.framework */,
 				5BDE08A5166F61AC007438DD /* UIKit.framework */,
@@ -600,6 +690,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				5B4794A5167A43DB00CE0D41 /* PBXTargetDependency */,
+				5B4794A3167A43D400CE0D41 /* PBXTargetDependency */,
 			);
 			name = StudyInYorkshire;
 			productName = StudyInYorkshire;
@@ -625,6 +717,12 @@
 			mainGroup = 5BDE0896166F61AC007438DD;
 			productRefGroup = 5BDE08A2166F61AC007438DD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5B479430167A43A100CE0D41 /* Products */;
+					ProjectRef = 5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5BDE08A0166F61AC007438DD /* StudyInYorkshire */,
@@ -632,11 +730,43 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		5B47945B167A43A200CE0D41 /* ShareKitDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ShareKitDemo.app;
+			remoteRef = 5B47945A167A43A200CE0D41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B47945D167A43A200CE0D41 /* libShareKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libShareKit.a;
+			remoteRef = 5B47945C167A43A200CE0D41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B47945F167A43A200CE0D41 /* ShareKit.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ShareKit.bundle;
+			remoteRef = 5B47945E167A43A200CE0D41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B479461167A43A200CE0D41 /* libShareKitCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libShareKitNoSubmodules.a;
+			remoteRef = 5B479460167A43A200CE0D41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		5BDE089F166F61AC007438DD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4794A7167A447F00CE0D41 /* ShareKit.bundle in Resources */,
 				5BA294DE167221DA00DE10BD /* assets in Resources */,
 				5BDE08B0166F61AC007438DD /* InfoPlist.strings in Resources */,
 				5BDE08B9166F61AD007438DD /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -746,10 +876,24 @@
 				5B19598B16777E0200F96191 /* MapViewController.m in Sources */,
 				5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */,
 				5B9CEDC31678EA8700B93934 /* ActionButton.m in Sources */,
+				5B4794C7167A486000CE0D41 /* YUShareKitConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B4794A3167A43D400CE0D41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library";
+			targetProxy = 5B4794A2167A43D400CE0D41 /* PBXContainerItemProxy */;
+		};
+		5B4794A5167A43DB00CE0D41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Resource Bundle";
+			targetProxy = 5B4794A4167A43DB00CE0D41 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5B20B1A31670CED4005C7856 /* page.css */ = {
@@ -841,9 +985,14 @@
 				GCC_PREFIX_HEADER = "StudyInYorkshire/StudyInYorkshire-Prefix.pch";
 				INFOPLIST_FILE = "StudyInYorkshire/StudyInYorkshire-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "ShareKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -856,10 +1005,15 @@
 				GCC_PREFIX_HEADER = "StudyInYorkshire/StudyInYorkshire-Prefix.pch";
 				INFOPLIST_FILE = "StudyInYorkshire/StudyInYorkshire-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2DEBC683-B95E-4E82-B9DD-AD155904426C";
 				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "ShareKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
