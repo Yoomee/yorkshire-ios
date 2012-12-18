@@ -11,7 +11,9 @@
 
 @class Page;
 
-@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate>
+@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate, UISplitViewControllerDelegate>
+
+@property (strong, nonatomic) PageViewController *detailViewController;
 
 @property (nonatomic, strong) Page *page;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

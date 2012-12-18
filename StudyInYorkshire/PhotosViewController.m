@@ -27,13 +27,19 @@
 {
     [super viewDidLoad];
     int photoIdx = 0;
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     for (id object in [self.fetchedResultsController fetchedObjects]){
         Photo *photo = (Photo *)object;
         
-        UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(2 + ((photoIdx % 4) * 79), 2 + ((photoIdx / 4) * 79), 79, 79)];
+        UIButton *imageButton = [[UIButton alloc] init];
+        if(iPad)
+            imageButton.frame = CGRectMake(4 + ((photoIdx % 4) * 190), 4 + ((photoIdx / 4) * 190), 190, 190);
+        else
+            imageButton.frame = CGRectMake(2 + ((photoIdx % 4) * 79), 2 + ((photoIdx / 4) * 79), 79, 79);
         imageButton.tag = photoIdx;
         [imageButton addTarget:self action:@selector(didPressImageButton:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2,75, 75)];
+        CGRect imageFrame = iPad ? CGRectMake(4, 4,182, 182) : CGRectMake(2, 2,75, 75);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setClipsToBounds:YES];
         [imageView setImage:photo.image];

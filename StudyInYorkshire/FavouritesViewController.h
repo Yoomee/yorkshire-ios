@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "PageViewController.h"
 
 @interface FavouritesViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) PageViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
