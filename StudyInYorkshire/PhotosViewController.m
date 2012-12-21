@@ -36,15 +36,14 @@
             imageButton.frame = CGRectMake(0,0,100,100);
         else
             imageButton.frame = CGRectMake(2 + ((photoIdx % 4) * 79), 2 + ((photoIdx / 4) * 79), 79, 79);
-        imageButton.tag = photoIdx;
+        imageButton.tag = photoIdx + 1;
         [imageButton addTarget:self action:@selector(didPressImageButton:) forControlEvents:UIControlEventTouchUpInside];
-//        CGRect imageFrame = iPad ? CGRectMake(4, 4,182, 182) : CGRectMake(2, 2,75, 75);
         CGRect imageFrame = iPad ? CGRectMake(0, 0,100, 100) : CGRectMake(2, 2,75, 75);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
         [imageView setClipsToBounds:YES];
-        [imageView setImage:photo.image];
+        [imageView setImage:photo.thumb];
         [imageButton addSubview:imageView];
         [self.view addSubview:imageButton];
         photoIdx++;
@@ -87,12 +86,14 @@
         int photoIdx = 0;
         for(int i=0;i < scrollView.subviews.count; i++){
             UIView *subView = [scrollView.subviews objectAtIndex:i];
-            CGRect frame = subView.frame;
-            frame = CGRectMake(padding + ((photoIdx)%cols)*(tileSize+5), (padding + ((photoIdx)/cols)*(tileSize+5)), tileSize, tileSize);
-            [subView setFrame:frame];
-            photoIdx++;
+            if(subView.tag != 0){
+                CGRect frame = subView.frame;
+                frame = CGRectMake(padding + ((photoIdx)%cols)*(tileSize+5), (padding + ((photoIdx)/cols)*(tileSize+5)), tileSize, tileSize);
+                [subView setFrame:frame];
+                photoIdx++;
+            }
         }
-        [scrollView setContentSize:CGSizeMake(screenWidth, (tileSize + 5) * (int)round((101.0/cols)+0.5) + (2*padding))];
+        [scrollView setContentSize:CGSizeMake(screenWidth, (tileSize + 5) * (int)round((([[self.fetchedResultsController fetchedObjects] count] + 1.0)/cols)+0.5) + (2*padding))];
         if (animated)
             [scrollView setContentOffset:CGPointMake(0, offsetCenterY) animated:NO];
         if(animated){
@@ -148,7 +149,7 @@
     if([segue.identifier isEqualToString:@"showPhoto"]){
         PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
         [photoViewController setPhotos:[[self fetchedResultsController] fetchedObjects]];
-        [photoViewController setCenterPageIdx:[sender tag]];
+        [photoViewController setCenterPageIdx:[sender tag] - 1];
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0235551684A286006B629E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0235541684A286006B629E /* HomeViewController.m */; };
 		5B19598716777D6D00F96191 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B19598616777D6D00F96191 /* MapKit.framework */; };
 		5B19598B16777E0200F96191 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B19598A16777E0200F96191 /* MapViewController.m */; };
 		5B20B1A51670CED4005C7856 /* page.css in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1A31670CED4005C7856 /* page.css */; };
@@ -26,6 +27,7 @@
 		5B20B1C91670FC64005C7856 /* background_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BA1670FC64005C7856 /* background_7.jpg */; };
 		5B20B1CA1670FC64005C7856 /* background_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BB1670FC64005C7856 /* background_8.jpg */; };
 		5B20B1CB1670FC64005C7856 /* background_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1BC1670FC64005C7856 /* background_9.jpg */; };
+		5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3494131681E1CC0088730A /* CaptionedPhotoView.m */; };
 		5B60AFCE16778DC700A35818 /* StudyInYorkshire.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */; };
 		5B66FED9166F704600BA4C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B66FED8166F704600BA4C65 /* CoreData.framework */; };
 		5B66FEE4166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */; };
@@ -119,6 +121,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B0235531684A286006B629E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5B0235541684A286006B629E /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		5B19598616777D6D00F96191 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5B19598916777E0200F96191 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		5B19598A16777E0200F96191 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 		5B20B1BA1670FC64005C7856 /* background_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_7.jpg; sourceTree = "<group>"; };
 		5B20B1BB1670FC64005C7856 /* background_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_8.jpg; sourceTree = "<group>"; };
 		5B20B1BC1670FC64005C7856 /* background_9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_9.jpg; sourceTree = "<group>"; };
+		5B3494121681E1CC0088730A /* CaptionedPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionedPhotoView.h; sourceTree = "<group>"; };
+		5B3494131681E1CC0088730A /* CaptionedPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionedPhotoView.m; sourceTree = "<group>"; };
 		5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = StudyInYorkshire.sqlite; sourceTree = "<group>"; };
 		5B66FED8166F704600BA4C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5B66FEE3166F751800BA4C65 /* StudyInYorkshire.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudyInYorkshire.xcdatamodel; sourceTree = "<group>"; };
@@ -334,6 +340,8 @@
 				5BB51392167645CC007014E8 /* PhotoViewController.m */,
 				5B19598916777E0200F96191 /* MapViewController.h */,
 				5B19598A16777E0200F96191 /* MapViewController.m */,
+				5B0235531684A286006B629E /* HomeViewController.h */,
+				5B0235541684A286006B629E /* HomeViewController.m */,
 				5B9CEDA11678B4BB00B93934 /* FavouritesViewController.h */,
 				5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */,
 			);
@@ -347,6 +355,8 @@
 				5B20B1AB1670F9AB005C7856 /* Page.m */,
 				5BB5130C1675FF2B007014E8 /* Photo.h */,
 				5BB5130D1675FF2B007014E8 /* Photo.m */,
+				5B3494121681E1CC0088730A /* CaptionedPhotoView.h */,
+				5B3494131681E1CC0088730A /* CaptionedPhotoView.m */,
 				5B9CEDC11678EA8500B93934 /* ActionButton.h */,
 				5B9CEDC21678EA8600B93934 /* ActionButton.m */,
 				5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */,
@@ -548,8 +558,8 @@
 		5BDE0896166F61AC007438DD = {
 			isa = PBXGroup;
 			children = (
-				5BB5131B167634BC007014E8 /* Nimbus */,
 				5BDE08AB166F61AC007438DD /* StudyInYorkshire */,
+				5BB5131B167634BC007014E8 /* Nimbus */,
 				5BDE08A4166F61AC007438DD /* Frameworks */,
 				5BDE08A2166F61AC007438DD /* Products */,
 			);
@@ -770,6 +780,8 @@
 				5B19598B16777E0200F96191 /* MapViewController.m in Sources */,
 				5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */,
 				5B9CEDC31678EA8700B93934 /* ActionButton.m in Sources */,
+				5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */,
+				5B0235551684A286006B629E /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

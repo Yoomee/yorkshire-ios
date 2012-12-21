@@ -10,13 +10,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HM6-Ko-bme" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="5I0-3c-gZc" customClass="PageViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Hvu-vI-rtb">
-                        <rect key="frame" x="0.0" y="64" width="320" height="739"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="2dh-0C-R8g"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2536" y="-3453"/>
+            <point key="canvasLocation" x="1654" y="-6389"/>
         </scene>
         <scene sceneID="11">
             <objects>
@@ -29,7 +29,7 @@
                     <navigationItem key="navigationItem" id="BwJ-eu-srz"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3897" y="-2457"/>
+            <point key="canvasLocation" x="2441" y="-5073"/>
         </scene>
         <scene sceneID="13">
             <objects>
@@ -45,7 +45,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1259" y="-1752"/>
+            <point key="canvasLocation" x="905" y="-2224"/>
         </scene>
         <scene sceneID="vDf-O8-WHg">
             <objects>
@@ -59,7 +59,7 @@
                     <navigationItem key="navigationItem" id="Abn-oI-Wte"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3742" y="-736"/>
+            <point key="canvasLocation" x="2382" y="-2240"/>
         </scene>
         <scene sceneID="15">
             <objects>
@@ -72,14 +72,14 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="xEh-bk-X94" kind="relationship" relationship="viewControllers" id="MSG-xK-GwU"/>
+                        <segue destination="qcd-FB-FDK" kind="relationship" relationship="viewControllers" id="Dxc-PQ-DW5"/>
                         <segue destination="VT9-1Y-LkP" kind="relationship" relationship="viewControllers" id="NAG-gu-cWZ"/>
                         <segue destination="7LB-4h-zqG" kind="relationship" relationship="viewControllers" id="27"/>
                         <segue destination="1ks-xq-9j4" kind="relationship" relationship="viewControllers" id="HxM-y5-wSu"/>
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="-1304" y="-3252"/>
+            <point key="canvasLocation" x="-2856" y="-2412"/>
         </scene>
         <scene sceneID="JfJ-8H-clR">
             <objects>
@@ -93,21 +93,36 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1459" y="-3656"/>
+            <point key="canvasLocation" x="1081" y="-6384"/>
+        </scene>
+        <scene sceneID="4jy-ne-Tcu">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="82R-JM-uMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="qcd-FB-FDK" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x4b-rd-ago">
+                        <rect key="frame" x="0.0" y="20" width="768" height="955"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="icon_home.png" id="l4c-pR-LNV"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-2229" y="-5060"/>
         </scene>
         <scene sceneID="skf-xd-2en">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TwN-X3-K5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <splitViewController id="xEh-bk-X94" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitViewController" id="xEh-bk-X94" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icon_home.png" id="bNr-u4-3cP"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="xm1-uF-ujC"/>
                     <connections>
                         <segue destination="INA-PZ-ANc" kind="relationship" relationship="masterViewController" id="Xfd-Do-lBU"/>
                         <segue destination="FXw-S2-3x9" kind="relationship" relationship="detailViewController" id="rxL-d1-Wmp"/>
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="149" y="-3492"/>
+            <point key="canvasLocation" x="-533" y="-5196"/>
         </scene>
         <scene sceneID="lBp-Ik-9Du">
             <objects>
@@ -125,7 +140,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-59" y="-1760"/>
+            <point key="canvasLocation" x="-533" y="-2240"/>
         </scene>
         <scene sceneID="jBk-Bz-Uh3">
             <objects>
@@ -152,7 +167,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2201" y="-489"/>
+            <point key="canvasLocation" x="905" y="-3689"/>
         </scene>
         <scene sceneID="nRZ-oB-R1e">
             <objects>
@@ -181,7 +196,7 @@
                     <navigationItem key="navigationItem" id="SDT-KU-MDm"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2719" y="806"/>
+            <point key="canvasLocation" x="1455" y="-810"/>
         </scene>
         <scene sceneID="b03-fW-LjV">
             <objects>
@@ -195,7 +210,7 @@
                     <navigationItem key="navigationItem" id="Haa-WN-Yjz"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-18" y="825"/>
+            <point key="canvasLocation" x="1502" y="593"/>
         </scene>
         <scene sceneID="31v-SB-yHR">
             <objects>
@@ -209,7 +224,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1048" y="-619"/>
+            <point key="canvasLocation" x="504" y="-787"/>
         </scene>
         <scene sceneID="g50-AI-Kop">
             <objects>
@@ -223,7 +238,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-2024" y="-151"/>
+            <point key="canvasLocation" x="-520" y="-887"/>
         </scene>
         <scene sceneID="xDT-Qm-T5I">
             <objects>
@@ -241,7 +256,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="923" y="-521"/>
+            <point key="canvasLocation" x="-541" y="-3689"/>
         </scene>
         <scene sceneID="dFh-1H-krl">
             <objects>
@@ -258,7 +273,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1040" y="777"/>
+            <point key="canvasLocation" x="488" y="593"/>
         </scene>
         <scene sceneID="YtG-rH-6Ne">
             <objects>
@@ -276,7 +291,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="2923" y="-2457"/>
+            <point key="canvasLocation" x="931" y="-5065"/>
         </scene>
     </scenes>
     <resources>
@@ -288,6 +303,12 @@
     <classes>
         <class className="FavouritesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FavouritesViewController.h"/>
+        </class>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didPressPageButton:"/>
+            </relationships>
         </class>
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>

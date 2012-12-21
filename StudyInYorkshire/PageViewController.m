@@ -7,6 +7,7 @@
 //
 
 #import "PageViewController.h"
+#import "HomeViewController.h"
 #import "FavouritesViewController.h"
 #import "AppDelegate.h"
 #import "Page.h"
@@ -17,11 +18,13 @@
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 - (void)configureNavbar;
+- (void)configureWebViewAndActionButtons;
 @end
 
 @implementation PageViewController
 @synthesize favouriteButton = _favouriteButton;
 @synthesize actionButtons = _actionButtons;
+@synthesize webView = _webView;
 
 @synthesize page = _page;
 @synthesize detailViewController = _detailViewController;
@@ -52,17 +55,21 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
+    [self configureWebViewAndActionButtons];
+}
+
+-(void)configureWebViewAndActionButtons{
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-    aWebView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
-    CGRect frame = aWebView.frame;
+    _webView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
+    CGRect frame = _webView.frame;
     frame.size.width = self.view.frame.size.width;
     frame.size.height = 1;
-    aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
+    _webView.frame = frame;
+    frame.size.height = _webView.scrollView.contentSize.height + (iPad ? 38 : 16);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
-    aWebView.frame = frame;       // Set the scrollView contentHeight back to the frame itself.
+    _webView.frame = frame;       // Set the scrollView contentHeight back to the frame itself.
     UIScrollView *scrollView = (UIScrollView *)self.view;
     CGSize contentSize = scrollView.contentSize;
     contentSize.height = frame.size.height + frame.origin.y;
@@ -187,17 +194,15 @@
 
 - (void)configureView
 {
-    if (_page == nil) {
-        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-    } else{
-        self.navigationItem.title = _page.title;
-    }
     [self configureNavbar];
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if(iPad){
         if(_detailViewController == nil){
             self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
             self.splitViewController.delegate = self.detailViewController;
+        }
+        if([_detailViewController ]){
+            
         }
         for(id object in self.view.subviews){
             UIView *subview = (UIView *)object;
@@ -209,6 +214,15 @@
     }
     
     UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+    
+    if (_page == nil) {
+        if(!iPad){
+        NSLog(@"%@",[self.parentViewController.parentViewController.class description]);
+        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+        }
+    } else{
+        self.navigationItem.title = _page.title;
+
     
     if([_page.children count] > 0){
         UIScrollView *scrollView = (UIScrollView *)self.view;
@@ -267,8 +281,11 @@
         UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
         [webView setDelegate:self];
         [webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [webView loadHTMLString:_page.html baseURL:nil];
-        [self.view addSubview:webView];
+        NSString *path = [NSString stringWithFormat:@"file://%@/",[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent]];
+        NSLog(@"path:%@",path);
+        [webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
+        self.webView = webView;
+        [self.view addSubview:self.webView];
         
         UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120))];
         [actionButtons setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -293,6 +310,7 @@
         [self.view addSubview:actionButtons];
         
         self.actionButtons = actionButtons;
+    }
     }
 }
 
@@ -359,7 +377,8 @@
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-    [self configureView];
+    [self.actionButtons setHidden:NO];
+    [self configureWebViewAndActionButtons];
 }
 
 #pragma mark - Split view

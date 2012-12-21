@@ -158,7 +158,7 @@
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"university"];
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
-    annotationView.tag = [self.annotations indexOfObject:annotation];
+    annotationView.tag = (int)[self.annotations indexOfObject:annotation];
     annotationView.enabled = YES;
     annotationView.canShowCallout = YES;
     return annotationView;
@@ -170,7 +170,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"showUniversity"]){
-        Page *university = (Page *)[self.universities objectAtIndex:[sender tag]];
+        Page *university = (Page *)[self.universities objectAtIndex:(int)[sender tag]];
         PageViewController *pageViewController = segue.destinationViewController;
         pageViewController.page = university;
     }

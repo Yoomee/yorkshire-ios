@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import "AppDelegate.h"
 #import "Photo.h"
+#import "CaptionedPhotoView.h"
 
 @implementation PhotoViewController
 @synthesize photoAlbumScrollView = _photoAlbumScrollView;
@@ -93,7 +94,7 @@
                         photoSize: (NIPhotoScrollViewPhotoSize *)photoSize
                         isLoading: (BOOL *)isLoading
           originalPhotoDimensions: (CGSize *)originalPhotoDimensions {
-    *photoSize = NIPhotoScrollViewPhotoSizeOriginal;
+    *photoSize = NIPhotoScrollViewPhotoSizeThumbnail;
     Photo *photo = [self.photos objectAtIndex:photoIndex];
     return photo.image;
 }
@@ -103,9 +104,13 @@
     NSString* reuseIdentifier = @"photo";
     pageView = [pagingScrollView dequeueReusablePageWithIdentifier:reuseIdentifier];
     if (nil == pageView) {
-        pageView = [[NIPhotoScrollView alloc] init];
+        pageView = [[CaptionedPhotoView alloc] init];
         pageView.reuseIdentifier = reuseIdentifier;
     }
+    Photo *photo = [self.photos objectAtIndex:pageIndex];
+    CaptionedPhotoView* captionedView = (CaptionedPhotoView *)pageView;
+    if(photo.caption)
+    captionedView.caption = photo.caption;
     return pageView;
 }
 -(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{

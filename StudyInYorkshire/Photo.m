@@ -16,8 +16,24 @@
 @dynamic caption;
 
 -(UIImage *)image{
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if (self.imageUID) {
         NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.imageUID];
+        if(iPad)
+            path = [path stringByAppendingString:@"~ipad"];
+        if([UIScreen mainScreen].scale == 2.0)
+            path = [path stringByAppendingString:@"@2x"];
+        path = [path stringByAppendingString:@".jpg"];
+        NSLog(path);
+        return [UIImage imageWithContentsOfFile:path];
+    } else {
+        return nil;
+    }
+}
+
+-(UIImage *)thumb{
+    if (self.imageUID) {
+        NSString *path = [NSString stringWithFormat:@"%@/assets/%@-thumb.jpg",[[NSBundle mainBundle] resourcePath],self.imageUID];
         return [UIImage imageWithContentsOfFile:path];
     } else {
         return nil;

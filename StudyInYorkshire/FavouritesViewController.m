@@ -52,7 +52,6 @@
     
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if(iPad && (_detailViewController == nil)){
-        NSLog(@"%d",self.splitViewController.viewControllers.count);
         self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     }
     self.navigationItem.title = @"Favourites";

@@ -22,6 +22,7 @@
 -(IBAction)didPressPageButton:(id)sender;
 -(IBAction)didPressBackButton:(id)sender;
 @property (weak, nonatomic) UIButton *favouriteButton;
+@property (weak, nonatomic) UIWebView *webView;
 @property (weak, nonatomic) UIView *actionButtons;
 
 @end
