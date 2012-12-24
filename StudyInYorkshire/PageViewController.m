@@ -51,7 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self configureView];
+    [self configureView];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
@@ -214,9 +214,8 @@
     UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
     
     if (_page == nil) {
-        if(!iPad){
+        if(!iPad)
             self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-        }
     } else{
         self.navigationItem.title = _page.title;
 

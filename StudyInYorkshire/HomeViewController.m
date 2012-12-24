@@ -14,6 +14,7 @@
 
 @interface HomeViewController ()
 - (void)configureView;
+- (void)layoutTilesForInterfaceOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated;
 @end
 
 @implementation HomeViewController
@@ -54,7 +55,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];    
+    [self layoutTilesForInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -137,35 +139,53 @@
 
 - (void)configureView
 {
-    UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+    UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:32.0];
     if (_page == nil) {
         self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
     }
-    __block float offset = 16;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 250, 126)];
+    label.text = @"Study at Universities in Yorkshire";
+    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.numberOfLines = 0;
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = titleFont;
+    label.layer.masksToBounds = NO;
+    label.layer.shadowColor = [UIColor blackColor].CGColor;
+    label.layer.shadowOpacity = 0.5;
+    label.layer.shadowRadius = 10;
+    label.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+    [self.view addSubview:label];
+    
+    titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
     NSUInteger count = 0;
     for(id object in _page.sortedChildren){
         Page *childPage = object;
-        float xOffset = 20 + (23 * [Page offsetForIndex:count]);
-        NSString *title = childPage.title;
-        CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(xOffset, offset, constrainedSize.width + 30, constrainedSize.height + 12)];
-        [button setBackgroundColor:childPage.color];
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(6, 15, 6, 15)];
-        [button.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
-        [button.titleLabel setNumberOfLines:0];
-        [button.titleLabel setTextAlignment:UITextAlignmentCenter];
-        [button.titleLabel setFont:titleFont];
-        [button setTitle:childPage.title forState:UIControlStateNormal];
-        [button setTag:count];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 250, 128)];
         [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
-        
+        button.backgroundColor = childPage.color;
+        button.tag = count;
         button.layer.masksToBounds = NO;
         button.layer.shadowColor = [UIColor blackColor].CGColor;
         button.layer.shadowOpacity = 0.5;
         button.layer.shadowRadius = 10;
         button.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 98, 220, 24)];
+        label.lineBreakMode = UILineBreakModeWordWrap;
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.numberOfLines = 0;
+        label.textAlignment = UITextAlignmentCenter;
+        label.font = titleFont;
+        label.text = childPage.title;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 250, 92)];
+        imageView.image = [[[childPage sortedChildren] objectAtIndex:0] headerImage];
+        [button addSubview:imageView];
+        [button addSubview:label];
         [self.view addSubview:button];
-        offset += button.frame.size.height + 20;
         count ++;
     };
     [self.view setBackgroundColor:_page.backgroundColor];
@@ -185,6 +205,46 @@
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
+}
+
+-(void) layoutTilesForInterfaceOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated{
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad){
+        int cols;
+        float padding;
+        if (UIInterfaceOrientationIsPortrait(orientation)) {
+            cols = 2;
+            padding = 89;
+        } else {
+            cols = 3;
+            padding = 68;
+        }
+        if(animated){
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:0.8];
+            [UIView setAnimationBeginsFromCurrentState:YES];
+        }
+        int count = 0;
+        for(int i=0;i < self.view.subviews.count; i++){
+            UIView *subView = [self.view.subviews objectAtIndex:i];
+//            if(subView.tag != 0){
+                CGRect frame = subView.frame;
+                frame.origin.x = padding + ((count)%cols)*(frame.size.width + padding);
+                frame.origin.y = padding + ((count)/cols)*(frame.size.height + padding);
+                [subView setFrame:frame];
+                count++;
+//            }
+        }
+        if(animated){
+            [UIView commitAnimations];
+        }
+    }
+    
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    [self layoutTilesForInterfaceOrientation:toInterfaceOrientation animated:YES];
+    
 }
 
 @end

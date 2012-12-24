@@ -61,7 +61,8 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.bounds];
+    UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.frame];
+    noFavourites.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     noFavourites.text = @"You haven't added\nany favourites yet";
     [noFavourites setTextAlignment:UITextAlignmentCenter];
     [noFavourites setNumberOfLines:2];
