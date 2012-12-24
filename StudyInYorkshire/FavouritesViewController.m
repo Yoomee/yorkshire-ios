@@ -53,6 +53,9 @@
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if(iPad && (_detailViewController == nil)){
         self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+        if (self.fetchedResultsController.fetchedObjects.count > 0) {
+            self.detailViewController.page = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+        }
     }
     self.navigationItem.title = @"Favourites";
     self.view.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];

@@ -51,7 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self configureView];
+//    [self configureView];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
@@ -201,11 +201,9 @@
             self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
             self.splitViewController.delegate = self.detailViewController;
         }
-        if([_detailViewController ]){
-            
-        }
         for(id object in self.view.subviews){
             UIView *subview = (UIView *)object;
+            NSLog(@"%@",[[subview class] description]);
             [subview removeFromSuperview];
         }
         UISwipeGestureRecognizer* swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
@@ -217,8 +215,7 @@
     
     if (_page == nil) {
         if(!iPad){
-        NSLog(@"%@",[self.parentViewController.parentViewController.class description]);
-        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+            self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
         }
     } else{
         self.navigationItem.title = _page.title;
@@ -281,7 +278,7 @@
         UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
         [webView setDelegate:self];
         [webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        NSString *path = [NSString stringWithFormat:@"file://%@/",[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent]];
+        NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
         NSLog(@"path:%@",path);
         [webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
         self.webView = webView;
@@ -338,12 +335,15 @@
 }
 
 -(IBAction) didPressPageButton:(id)sender{
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     Page *childPage = [_page.sortedChildren objectAtIndex:[sender tag]];
-    if ((childPage.children.count > 0) || ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)) {
+    if ((childPage.children.count > 0) || !iPad) {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:NULL];
         PageViewController *viewController = [story instantiateViewControllerWithIdentifier:@"PageViewController"];
         viewController.page = childPage;
         viewController.detailViewController = _detailViewController;
+        if(iPad && viewController.detailViewController.page == nil)
+            viewController.detailViewController.page = [childPage.sortedChildren objectAtIndex:0];
         [self.navigationController pushViewController:viewController animated:YES];
     } else {
         [self.detailViewController setPage:childPage];

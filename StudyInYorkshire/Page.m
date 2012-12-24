@@ -55,7 +55,9 @@
     if (![self.viewName isEqualToString:@"university"]){
         output = [NSString stringWithFormat:@"%@<h1 class='page-title'>%@</h1>",output,self.title];
     }
-    return [NSString stringWithFormat:@"%@%@<div class='clearfix'></div></body></html>",output,self.text];
+    NSString *path = [[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString *pageText = [self.text stringByReplacingOccurrencesOfString:@"<img src=\"/media" withString:[NSString stringWithFormat:@"<img src=\"file://%@/assets/media",path] options:NSCaseInsensitiveSearch range:NSMakeRange(0, self.text.length)];
+    return [NSString stringWithFormat:@"%@%@<div class='clearfix'></div></body></html>",output,pageText];
 }
 
 -(UIColor *)navigationBarColor{
