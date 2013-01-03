@@ -75,7 +75,7 @@
                         <segue destination="qcd-FB-FDK" kind="relationship" relationship="viewControllers" id="Dxc-PQ-DW5"/>
                         <segue destination="VT9-1Y-LkP" kind="relationship" relationship="viewControllers" id="NAG-gu-cWZ"/>
                         <segue destination="7LB-4h-zqG" kind="relationship" relationship="viewControllers" id="27"/>
-                        <segue destination="1ks-xq-9j4" kind="relationship" relationship="viewControllers" id="HxM-y5-wSu"/>
+                        <segue destination="mdH-AV-1EQ" kind="relationship" relationship="viewControllers" id="eXu-i4-DRN"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -112,7 +112,7 @@
         <scene sceneID="skf-xd-2en">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TwN-X3-K5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <splitViewController storyboardIdentifier="SplitViewController" id="xEh-bk-X94" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitViewController" id="xEh-bk-X94" customClass="IntelligentSplitViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="icon_home.png" id="bNr-u4-3cP"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="xm1-uF-ujC"/>
@@ -174,7 +174,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="601-3l-jp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="TPc-gQ-DxM" customClass="FavouritesViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WH9-3N-TjQ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="739"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -203,7 +203,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o9K-Fq-bOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="VL3-nn-w6D" customClass="PageViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="6La-TC-Sgp">
-                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </scrollView>
                     <toolbarItems/>
@@ -229,7 +229,7 @@
         <scene sceneID="g50-AI-Kop">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CbM-ua-je1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <splitViewController id="1ks-xq-9j4" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="FavouritesViewController" id="1ks-xq-9j4" customClass="IntelligentSplitViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favourites" image="icon_favourites.png" id="amp-8I-FXd"/>
                     <toolbarItems/>
                     <connections>
@@ -293,6 +293,39 @@
             </objects>
             <point key="canvasLocation" x="931" y="-5065"/>
         </scene>
+        <scene sceneID="dTO-f7-9cd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GdU-t1-jZs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="NoFavouritesViewController" id="mdH-AV-1EQ" customClass="NoFavouritesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u4i-Qc-6tl">
+                        <rect key="frame" x="0.0" y="20" width="768" height="955"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="NOc-nV-V2b">
+                                <rect key="frame" x="192" y="425" width="384" height="127"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Use the 'Add to favourites' button at the bottom of any page to save it here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="FYe-WT-TPd">
+                                        <rect key="frame" x="17" y="0.0" width="349" height="107"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Favourites" image="icon_favourites.png" id="xfq-t1-MdD"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="FYe-WT-TPd" id="AaG-9V-vqG"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-1661" y="-1060"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon_favourites.png" width="30" height="30"/>
@@ -310,10 +343,19 @@
                 <relationship kind="action" name="didPressPageButton:"/>
             </relationships>
         </class>
+        <class className="IntelligentSplitViewController" superclassName="UISplitViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IntelligentSplitViewController.h"/>
+        </class>
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="NoFavouritesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoFavouritesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="infoLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PageViewController" superclassName="UIViewController">

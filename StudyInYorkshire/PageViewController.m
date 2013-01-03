@@ -52,48 +52,55 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self configureView];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
-    NSLog(@"webViewDidFinishLoad");
-//    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-//    float yOffset = (iPad ? 264 : 110);
-//    if(_page.image){
-//        UIView *imageWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width,yOffset + (iPad ? 76 : 32))];
-//        [imageWrapper setBackgroundColor:[UIColor whiteColor]];
-//        [imageWrapper setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((iPad ? 38 : 16), (iPad ? 38 : 16), self.view.frame.size.width - (iPad ? 76 : 32),yOffset)];
-//        [imageView setContentMode:UIViewContentModeScaleAspectFit];
-//        [imageView setImage:_page.image];
-//        [imageWrapper addSubview:imageView];
-//        [self.view addSubview:imageWrapper];
-//        yOffset += yOffset + (iPad ? 76 : 32);
-//    }
-//    UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120))];
-//    [actionButtons setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//    
-//    UIView *actionButtonsWrapper = [[UIView alloc] initWithFrame:CGRectMake((iPad ? ((self.view.frame.size.width - 598) / 2)  : 16), 0, (iPad ? 598 : 280), (iPad ? 78: 120))];
-//    [actionButtonsWrapper setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-//    
-//    UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
-//    [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
-//    [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-//    [actionButtonsWrapper addSubview:shareButton];
-//    
-//    UIButton *favouriteButton = [[ActionButton alloc] initWithFrame:CGRectMake((iPad ? 318: 0), (iPad ? 0 : 60), 280, 40)];
-//    [favouriteButton setTitle:_page.favouriteButtonTitle forState:UIControlStateNormal];
-//    [favouriteButton addTarget:self action:@selector(didPressFavouriteButton:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    self.favouriteButton = favouriteButton;
-//    [actionButtonsWrapper addSubview:favouriteButton];
-//    [actionButtons addSubview:actionButtonsWrapper];
-//    [actionButtons setBackgroundColor:[UIColor whiteColor]];
-//    [actionButtons setHidden:YES];
-//    [self.view addSubview:actionButtons];
-//    
-//    self.actionButtons = actionButtons;    
-//    [self configureWebViewAndActionButtons:aWebView];
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    float yOffset = (iPad ? 264 : 110);
+    if(_page.image){
+        UIView *imageWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width,yOffset + (iPad ? 76 : 32))];
+        [imageWrapper setBackgroundColor:[UIColor whiteColor]];
+        [imageWrapper setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((iPad ? 38 : 16), (iPad ? 38 : 16), self.view.frame.size.width - (iPad ? 76 : 32),yOffset)];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [imageView setImage:_page.image];
+        [imageWrapper addSubview:imageView];
+        [self.view addSubview:imageWrapper];
+        yOffset += yOffset + (iPad ? 76 : 32);
+    }
+    UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120))];
+    [actionButtons setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    
+    UIView *actionButtonsWrapper = [[UIView alloc] initWithFrame:CGRectMake((iPad ? ((self.view.frame.size.width - 598) / 2)  : 16), 0, (iPad ? 598 : 280), (iPad ? 78: 120))];
+    [actionButtonsWrapper setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    
+    UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
+    [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
+    [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [actionButtonsWrapper addSubview:shareButton];
+    
+    UIButton *favouriteButton = [[ActionButton alloc] initWithFrame:CGRectMake((iPad ? 318: 0), (iPad ? 0 : 60), 280, 40)];
+    [favouriteButton setTitle:_page.favouriteButtonTitle forState:UIControlStateNormal];
+    [favouriteButton addTarget:self action:@selector(didPressFavouriteButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.favouriteButton = favouriteButton;
+    [actionButtonsWrapper addSubview:favouriteButton];
+    [actionButtons addSubview:actionButtonsWrapper];
+    [actionButtons setBackgroundColor:[UIColor whiteColor]];
+    [actionButtons setHidden:YES];
+    [self.view addSubview:actionButtons];
+    
+    self.actionButtons = actionButtons;    
+    [self configureWebViewAndActionButtons:aWebView];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    } else {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        return NO;
+    }
 }
 
 -(void)configureWebViewAndActionButtons{
@@ -112,7 +119,6 @@
     frame.size.height = 1;
     aWebView.frame = frame;
     frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
-    NSLog(@"webView height: %f", aWebView.scrollView.contentSize.height);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
@@ -319,7 +325,6 @@
             NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
             self.webView = aWebView;
             [self.view addSubview:self.webView];
-//            [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://news.bbc.co.uk"]]];
             [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
         }
     }
@@ -379,6 +384,7 @@
             FavouritesViewController *favouritesViewController = (FavouritesViewController *)viewController;
             favouritesViewController.fetchedResultsController = nil;
             [favouritesViewController.tableView reloadData];
+            [favouritesViewController viewWillAppear:NO];
         }
     }
     [self.managedObjectContext save:nil];

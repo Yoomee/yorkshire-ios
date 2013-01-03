@@ -7,6 +7,7 @@
 //
 
 #import "FavouritesViewController.h"
+#import "NoFavouritesViewController.h"
 #import "AppDelegate.h"
 #import "PageViewController.h"
 #import "Page.h"
@@ -111,6 +112,17 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    if([[self.fetchedResultsController fetchedObjects] count] == 0){
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.tabBarController.viewControllers];
+        if(viewControllers.count > 0){
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
+        NoFavouritesViewController *noFavouritesViewController = [story instantiateViewControllerWithIdentifier:@"NoFavouritesViewController"];
+        [viewControllers addObject:noFavouritesViewController];
+        [viewControllers removeObjectAtIndex:3];
+        [self.tabBarController setViewControllers:viewControllers];
+        [self.tabBarController setSelectedViewController:noFavouritesViewController];
+        }
+    }
     [super viewDidAppear:animated];
 }
 

@@ -10,4 +10,5 @@
 
 @interface NoFavouritesViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @end
