@@ -69,8 +69,9 @@
 }
 
 -(NSArray *)sortedChildren {
-    NSSortDescriptor *sortNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortNameDescriptor, nil];
+    NSSortDescriptor *sortPositionDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+    NSSortDescriptor *sortNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortPositionDescriptor, sortNameDescriptor, nil];
     return [self.children sortedArrayUsingDescriptors:sortDescriptors];
 }
 
