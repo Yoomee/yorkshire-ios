@@ -51,7 +51,11 @@
 
 - (void)viewDidLoad
 {
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     [super viewDidLoad];
+    if (!iPad && (_page == nil)) {
+        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+    }
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
@@ -95,7 +99,6 @@
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"%@",request.URL.absoluteString);
     if ([request.URL.absoluteString isEqualToString:@"about:blank"] || [request.URL.absoluteString hasPrefix:@"file://"]) {
         return YES;
     } else {
@@ -112,12 +115,7 @@
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     aWebView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
     CGRect frame = aWebView.frame;
-    NSLog(@"%@",[[self.navigationController parentViewController] class]);
-//    if(iPad && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])){
-//        frame.size.width = 704  ;
-//    } else {
-         frame.size.width = self.view.frame.size.width;   
-//    }
+    frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
     aWebView.frame = frame;
     frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
@@ -273,74 +271,69 @@
     
     UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
     
-    if (_page == nil) {
-        if(!iPad)
-            self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-    } else{
-        self.navigationItem.title = _page.title;
-        
-        
-        if([_page.children count] > 0){
-            UIScrollView *scrollView = (UIScrollView *)self.view;
-            __block float offset = 16;
-            NSUInteger count = 0;
-            for(id object in _page.sortedChildren){
-                Page *childPage = object;
-                float xOffset = 20 + (23 * [Page offsetForIndex:count]);
-                NSString *title = childPage.title;
-                CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
-                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(xOffset, offset, constrainedSize.width + 30, constrainedSize.height + 12)];
-                [button setBackgroundColor:childPage.color];
-                [button setTitleEdgeInsets:UIEdgeInsetsMake(6, 15, 6, 15)];
-                [button.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
-                [button.titleLabel setNumberOfLines:0];
-                [button.titleLabel setTextAlignment:UITextAlignmentCenter];
-                [button.titleLabel setFont:titleFont];
-                [button setTitle:childPage.title forState:UIControlStateNormal];
-                [button setTag:count];
-                [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
-                
-                button.layer.masksToBounds = NO;
-                button.layer.shadowColor = [UIColor blackColor].CGColor;
-                button.layer.shadowOpacity = 0.5;
-                button.layer.shadowRadius = 10;
-                button.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-                
-                
-                [self.view addSubview:button];
-                offset += button.frame.size.height + 20;
-                count ++;
-            };
-            CGSize contentSize = scrollView.contentSize;
-            contentSize.height = offset;
-            [scrollView setContentSize:contentSize];
-            [scrollView setBackgroundColor:_page.backgroundColor];
-        } else {
-            [self.view setBackgroundColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
-            float yOffset = (iPad ? 264 : 110);
-            UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,yOffset)];
-            [headerImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-            [headerImageView setContentMode:UIViewContentModeScaleAspectFill];
-            [headerImageView setImage:_page.headerImage];
-            [self.view addSubview:headerImageView];
-            if(_page.image){
-                yOffset += yOffset + (iPad ? 76 : 32);
-            }
+    self.navigationItem.title = _page.title;
+    
+    
+    if([_page.children count] > 0){
+        UIScrollView *scrollView = (UIScrollView *)self.view;
+        __block float offset = 16;
+        NSUInteger count = 0;
+        for(id object in _page.sortedChildren){
+            Page *childPage = object;
+            float xOffset = 20 + (23 * [Page offsetForIndex:count]);
+            NSString *title = childPage.title;
+            CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(xOffset, offset, constrainedSize.width + 30, constrainedSize.height + 12)];
+            [button setBackgroundColor:childPage.color];
+            [button setTitleEdgeInsets:UIEdgeInsetsMake(6, 15, 6, 15)];
+            [button.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+            [button.titleLabel setNumberOfLines:0];
+            [button.titleLabel setTextAlignment:UITextAlignmentCenter];
+            [button.titleLabel setFont:titleFont];
+            [button setTitle:childPage.title forState:UIControlStateNormal];
+            [button setTag:count];
+            [button addTarget:self action:@selector(didPressPageButton:) forControlEvents:UIControlEventTouchUpInside];
             
-            if(self.webView != nil){
-                [self.webView removeFromSuperview];
-                self.webView = nil;
-            }
+            button.layer.masksToBounds = NO;
+            button.layer.shadowColor = [UIColor blackColor].CGColor;
+            button.layer.shadowOpacity = 0.5;
+            button.layer.shadowRadius = 10;
+            button.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
             
-            UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
-            [aWebView setDelegate:self];
-            [aWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-            NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
-            self.webView = aWebView;
-            [self.view addSubview:self.webView];
-            //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.co.uk"]]
-            [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
+            
+            [self.view addSubview:button];
+            offset += button.frame.size.height + 20;
+            count ++;
+        };
+        CGSize contentSize = scrollView.contentSize;
+        contentSize.height = offset;
+        [scrollView setContentSize:contentSize];
+        [scrollView setBackgroundColor:_page.backgroundColor];
+    } else {
+        [self.view setBackgroundColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
+        float yOffset = (iPad ? 264 : 110);
+        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,yOffset)];
+        [headerImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [headerImageView setContentMode:UIViewContentModeScaleAspectFill];
+        [headerImageView setImage:_page.headerImage];
+        [self.view addSubview:headerImageView];
+        if(_page.image){
+            yOffset += yOffset + (iPad ? 76 : 32);
         }
+        
+        if(self.webView != nil){
+            [self.webView removeFromSuperview];
+            self.webView = nil;
+        }
+        
+        UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
+        [aWebView setDelegate:self];
+        [aWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
+        self.webView = aWebView;
+        [self.view addSubview:self.webView];
+        //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.co.uk"]]
+        [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
     }
 }
 
