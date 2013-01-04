@@ -73,8 +73,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="qcd-FB-FDK" kind="relationship" relationship="viewControllers" id="Dxc-PQ-DW5"/>
-                        <segue destination="VT9-1Y-LkP" kind="relationship" relationship="viewControllers" id="NAG-gu-cWZ"/>
                         <segue destination="7LB-4h-zqG" kind="relationship" relationship="viewControllers" id="27"/>
+                        <segue destination="VT9-1Y-LkP" kind="relationship" relationship="viewControllers" id="NAG-gu-cWZ"/>
                         <segue destination="mdH-AV-1EQ" kind="relationship" relationship="viewControllers" id="eXu-i4-DRN"/>
                     </connections>
                 </tabBarController>
