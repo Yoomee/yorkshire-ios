@@ -95,7 +95,8 @@
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+    NSLog(@"%@",request.URL.absoluteString);
+    if ([request.URL.absoluteString isEqualToString:@"about:blank"] || [request.URL.absoluteString hasPrefix:@"file://"]) {
         return YES;
     } else {
         [[UIApplication sharedApplication] openURL:request.URL];
@@ -326,12 +327,18 @@
                 yOffset += yOffset + (iPad ? 76 : 32);
             }
             
+            if(self.webView != nil){
+                [self.webView removeFromSuperview];
+                self.webView = nil;
+            }
+            
             UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
             [aWebView setDelegate:self];
             [aWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
             self.webView = aWebView;
             [self.view addSubview:self.webView];
+            //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.co.uk"]]
             [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
         }
     }
