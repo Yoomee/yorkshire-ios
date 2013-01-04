@@ -81,7 +81,7 @@
     
     UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
     [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
-    [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(didPressShareButton:) forControlEvents:UIControlEventTouchUpInside];
     [actionButtonsWrapper addSubview:shareButton];
     
     UIButton *favouriteButton = [[ActionButton alloc] initWithFrame:CGRectMake((iPad ? 318: 0), (iPad ? 0 : 60), 280, 40)];
@@ -412,7 +412,8 @@
     [SHK setRootViewController:self];
     
     // Display the action sheet
-    [actionSheet showInView:self.view];
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    //[actionSheet showInView:self.view];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{

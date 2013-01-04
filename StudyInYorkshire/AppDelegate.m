@@ -34,13 +34,13 @@
     [[UITabBar appearance] setBackgroundImage:img];
     [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
     
-    DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
-    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
-    
     [self performSelector:@selector(flushOfflineQueue) withObject:nil afterDelay:0.5];
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bar_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)] forState:UIControlStateNormal 
                                           barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
 
     return YES;
 }
