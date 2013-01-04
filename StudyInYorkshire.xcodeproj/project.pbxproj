@@ -68,8 +68,6 @@
 		5B20B1A51670CED4005C7856 /* page.css in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1A31670CED4005C7856 /* page.css */; };
 		5B20B1AC1670F9AB005C7856 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B20B1AB1670F9AB005C7856 /* Page.m */; };
 		5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3494131681E1CC0088730A /* CaptionedPhotoView.m */; };
-<<<<<<< HEAD
-=======
 		5B4794A6167A440200CE0D41 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47945D167A43A200CE0D41 /* libShareKit.a */; };
 		5B4794A7167A447F00CE0D41 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B47945F167A43A200CE0D41 /* ShareKit.bundle */; };
 		5B4794A9167A44F600CE0D41 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */; };
@@ -79,7 +77,6 @@
 		5B4794B1167A453200CE0D41 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794B0167A453200CE0D41 /* CoreFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5B4794C7167A486000CE0D41 /* YUShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */; };
 		5B4794C9167A49F800CE0D41 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794C8167A49F800CE0D41 /* CoreLocation.framework */; };
->>>>>>> sharing
 		5B60AFCE16778DC700A35818 /* StudyInYorkshire.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */; };
 		5B66FED9166F704600BA4C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B66FED8166F704600BA4C65 /* CoreData.framework */; };
 		5B66FEE4166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */; };
@@ -263,8 +260,6 @@
 		5B20B1AB1670F9AB005C7856 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
 		5B3494121681E1CC0088730A /* CaptionedPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionedPhotoView.h; sourceTree = "<group>"; };
 		5B3494131681E1CC0088730A /* CaptionedPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionedPhotoView.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
 		5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
 		5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B4794AA167A450200CE0D41 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -274,7 +269,6 @@
 		5B4794C5167A486000CE0D41 /* YUShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUShareKitConfigurator.h; sourceTree = "<group>"; };
 		5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUShareKitConfigurator.m; sourceTree = "<group>"; };
 		5B4794C8167A49F800CE0D41 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
->>>>>>> sharing
 		5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = StudyInYorkshire.sqlite; sourceTree = "<group>"; };
 		5B66FED8166F704600BA4C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5B66FEE3166F751800BA4C65 /* StudyInYorkshire.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudyInYorkshire.xcdatamodel; sourceTree = "<group>"; };
@@ -718,10 +712,7 @@
 		5BDE0896166F61AC007438DD = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-=======
 				5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */,
->>>>>>> sharing
 				5BDE08AB166F61AC007438DD /* StudyInYorkshire */,
 				5BB5131B167634BC007014E8 /* Nimbus */,
 				5BDE08A4166F61AC007438DD /* Frameworks */,
@@ -963,10 +954,7 @@
 				5B1622E416945CBF00C4902B /* background_15.jpg in Resources */,
 				5B9C71E91695AB8E00E765B8 /* Default-Portrait~ipad.png in Resources */,
 				5B9C71EC1695AC1400E765B8 /* Default-Landscape~ipad.png in Resources */,
-<<<<<<< HEAD
-=======
 				5BDEA3B61697305500D83DF8 /* Sharers.plist in Resources */,
->>>>>>> sharing
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,10 +1001,7 @@
 				5B19598B16777E0200F96191 /* MapViewController.m in Sources */,
 				5B9CEDA31678B4BB00B93934 /* FavouritesViewController.m in Sources */,
 				5B9CEDC31678EA8700B93934 /* ActionButton.m in Sources */,
-<<<<<<< HEAD
-=======
 				5B4794C7167A486000CE0D41 /* YUShareKitConfigurator.m in Sources */,
->>>>>>> sharing
 				5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */,
 				5B0235551684A286006B629E /* HomeViewController.m in Sources */,
 				5B9C71F01695AF1400E765B8 /* NoFavouritesViewController.m in Sources */,
