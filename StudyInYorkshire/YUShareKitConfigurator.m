@@ -16,7 +16,7 @@
  These values are used by any service that shows 'shared from XYZ'
  */
 - (NSString*)appName {
-	return @"100 Day Bible Challenge Artwork";
+	return @"Study at universities in Yorkshire, UK";
 }
 
 - (NSString*)appURL {
@@ -48,28 +48,7 @@
  --------
 */
 - (NSString*)facebookAppId {
-	return @"179919252144062";
-}
-
-- (NSString*)facebookLocalAppId {
-	return @"";
-}
-
-- (NSString*)twitterConsumerKey {
-	return @"9FsUV1IgdzwuGiqzMWy27A";
-}
-
-- (NSString*)twitterSecret {
-	return @"9ZISX30sdTKtyuW21OcsXPKaELamldm8mxQG4Q8WENc";
-}
-// You need to set this if using OAuth, see note above (xAuth users can skip it)
-- (NSString*)twitterCallbackUrl {
-	return @"http://twitter.com";
-}
-
-// Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
-- (NSString*)twitterUsername {
-	return @"";
+	return @"399016476859107";
 }
 
 /*
