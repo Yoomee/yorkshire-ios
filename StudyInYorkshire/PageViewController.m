@@ -111,11 +111,12 @@
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     aWebView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
     CGRect frame = aWebView.frame;
-    if(iPad && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])){
-        frame.size.width = 704  ;
-    } else {
+    NSLog(@"%@",[[self.navigationController parentViewController] class]);
+//    if(iPad && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])){
+//        frame.size.width = 704  ;
+//    } else {
          frame.size.width = self.view.frame.size.width;   
-    }
+//    }
     frame.size.height = 1;
     aWebView.frame = frame;
     frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
@@ -136,13 +137,11 @@
 
 - (void)setPage:(Page *)newPage
 {
-    if (_page != newPage) {
-        _page = newPage;
-        // Update the view.
-        UIScrollView *scrollView = (UIScrollView *)self.view;
-        [scrollView setContentOffset:CGPointMake(0, -44.0)];
-        [self configureView];
-    }
+    _page = newPage;
+    // Update the view.
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    [scrollView setContentOffset:CGPointMake(0, -44.0)];
+    [self configureView];
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
     }    
@@ -160,6 +159,14 @@
 {
     [self configureNavbar];
     [super viewWillAppear:animated];
+    [self.favouriteButton setTitle:_page.favouriteButtonTitle forState:UIControlStateNormal];
+    if(self.splitViewController){
+        UIViewController *viewController = [[self.splitViewController.viewControllers objectAtIndex:0] topViewController];
+        if([viewController isKindOfClass:[FavouritesViewController class]]){
+            FavouritesViewController *favouritesViewController = (FavouritesViewController *)viewController;
+            [favouritesViewController viewDidAppear:NO];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -385,6 +392,7 @@
             favouritesViewController.fetchedResultsController = nil;
             [favouritesViewController.tableView reloadData];
             [favouritesViewController viewWillAppear:NO];
+            [favouritesViewController viewDidAppear:NO];
         }
     }
     [self.managedObjectContext save:nil];
