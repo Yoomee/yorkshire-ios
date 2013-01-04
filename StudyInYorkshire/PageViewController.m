@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "Page.h"
 #import "ActionButton.h"
+#import "SHK.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PageViewController ()
@@ -80,7 +81,7 @@
     
     UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
     [shareButton setTitle:@"Share this" forState:UIControlStateNormal];
-    [shareButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(didPressShareButton:) forControlEvents:UIControlEventTouchUpInside];
     [actionButtonsWrapper addSubview:shareButton];
     
     UIButton *favouriteButton = [[ActionButton alloc] initWithFrame:CGRectMake((iPad ? 318: 0), (iPad ? 0 : 60), 280, 40)];
@@ -396,6 +397,23 @@
         }
     }
     [self.managedObjectContext save:nil];
+}
+
+-(void) didPressShareButton:(id)sender {
+    // Create the item to share (in this example, a url)
+    NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
+    SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!" contentType:SHKURLContentTypeWebpage];
+    
+    // Get the ShareKit action sheet
+    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    
+    // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
+    // but sometimes it may not find one. To be safe, set it explicitly
+    [SHK setRootViewController:self];
+    
+    // Display the action sheet
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    //[actionSheet showInView:self.view];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
