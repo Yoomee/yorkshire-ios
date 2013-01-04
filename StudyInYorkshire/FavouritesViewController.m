@@ -112,7 +112,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if([[self.fetchedResultsController fetchedObjects] count] == 0){
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad && [[self.fetchedResultsController fetchedObjects] count] == 0){
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.tabBarController.viewControllers];
         if(viewControllers.count > 0){
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
