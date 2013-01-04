@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSString * caption;
 
 -(UIImage *)image;
+-(UIImage *)thumb;
 
 @end

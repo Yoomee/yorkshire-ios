@@ -51,10 +51,13 @@
 
 -(NSString *)html{
     NSString *output = [NSString stringWithFormat:@"<html><head><link rel='stylesheet' type='text/css' href='file://%@'></head><body>",[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"]];
+    //NSString *output = @"<html><head><link rel='stylesheet' type='text/css' href='page.css'></head><body>";
     if (![self.viewName isEqualToString:@"university"]){
         output = [NSString stringWithFormat:@"%@<h1 class='page-title'>%@</h1>",output,self.title];
     }
-    return [NSString stringWithFormat:@"%@%@<div class='clearfix'></div></body></html>",output,self.text];
+    NSString *path = [[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+    NSString *pageText = [self.text stringByReplacingOccurrencesOfString:@"<img src=\"/media" withString:[NSString stringWithFormat:@"<img src=\"file://%@/assets/media",path] options:NSCaseInsensitiveSearch range:NSMakeRange(0, self.text.length)];
+    return [NSString stringWithFormat:@"%@%@<div class='clearfix'></div></body></html>",output,pageText];
 }
 
 -(UIColor *)navigationBarColor{
@@ -66,8 +69,9 @@
 }
 
 -(NSArray *)sortedChildren {
-    NSSortDescriptor *sortNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortNameDescriptor, nil];
+    NSSortDescriptor *sortPositionDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+    NSSortDescriptor *sortNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortPositionDescriptor, sortNameDescriptor, nil];
     return [self.children sortedArrayUsingDescriptors:sortDescriptors];
 }
 

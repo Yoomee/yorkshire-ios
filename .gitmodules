@@ -1,6 +1,6 @@
 [submodule "nimbus"]
 	path = nimbus
-	url = git@github.com:jverkoey/nimbus.git
+	url = git@github.com:Yoomee/nimbus.git
 [submodule "ShareKit"]
 	path = ShareKit
 	url = git://github.com/ShareKit/ShareKit.git

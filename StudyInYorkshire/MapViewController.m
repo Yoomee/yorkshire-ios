@@ -87,7 +87,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -166,9 +170,17 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"showUniversity"]){
-        Page *university = (Page *)[self.universities objectAtIndex:[sender tag]];
+        MKAnnotationView *annotationView = (MKAnnotationView *)sender;
+        CLLocationCoordinate2D coordinate = [annotationView.annotation coordinate];
         PageViewController *pageViewController = segue.destinationViewController;
-        pageViewController.page = university;
+        for (Page* university in self.universities)
+        {
+            if(([university.latitude floatValue] == coordinate.latitude)&& ([university.longitude floatValue] == coordinate.longitude)){
+                pageViewController.page = university;
+                break;
+            }
+        }
     }
 }
+
 @end

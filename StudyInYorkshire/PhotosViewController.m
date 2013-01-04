@@ -27,16 +27,23 @@
 {
     [super viewDidLoad];
     int photoIdx = 0;
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     for (id object in [self.fetchedResultsController fetchedObjects]){
         Photo *photo = (Photo *)object;
         
-        UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(2 + ((photoIdx % 4) * 79), 2 + ((photoIdx / 4) * 79), 79, 79)];
-        imageButton.tag = photoIdx;
+        UIButton *imageButton = [[UIButton alloc] init];
+        if(iPad)
+            imageButton.frame = CGRectMake(0,0,100,100);
+        else
+            imageButton.frame = CGRectMake(2 + ((photoIdx % 4) * 79), 2 + ((photoIdx / 4) * 79), 79, 79);
+        imageButton.tag = photoIdx + 1;
         [imageButton addTarget:self action:@selector(didPressImageButton:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2,75, 75)];
+        CGRect imageFrame = iPad ? CGRectMake(0, 0,100, 100) : CGRectMake(2, 2,75, 75);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [imageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
         [imageView setClipsToBounds:YES];
-        [imageView setImage:photo.image];
+        [imageView setImage:photo.thumb];
         [imageButton addSubview:imageView];
         [self.view addSubview:imageButton];
         photoIdx++;
@@ -49,6 +56,53 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+-(void) layoutTilesForInterfaceOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated{
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad){
+        UIScrollView *scrollView = (UIScrollView *)self.view;
+        int cols;
+        float tileSize, padding, screenWidth, screenHeight, offsetCenterY;
+        if (UIInterfaceOrientationIsPortrait(orientation)) {
+            cols = 4;
+            tileSize = 185;
+            padding = 6;
+            screenWidth = 768;
+            screenHeight = 1024;
+            offsetCenterY = scrollView.contentOffset.y * (3928.0/2126.0);
+        } else {
+            cols = 6;
+            tileSize = 165;
+            padding = 2;
+            screenWidth = 1024;
+            screenHeight = 768;
+            offsetCenterY = scrollView.contentOffset.y * (2126.0/3928.0);
+        }
+        
+        if(animated){
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:1.2];
+            [UIView setAnimationBeginsFromCurrentState:YES];
+        }
+        int photoIdx = 0;
+        for(int i=0;i < scrollView.subviews.count; i++){
+            UIView *subView = [scrollView.subviews objectAtIndex:i];
+            if(subView.tag != 0){
+                CGRect frame = subView.frame;
+                frame = CGRectMake(padding + ((photoIdx)%cols)*(tileSize+5), (padding + ((photoIdx)/cols)*(tileSize+5)), tileSize, tileSize);
+                [subView setFrame:frame];
+                photoIdx++;
+            }
+        }
+        [scrollView setContentSize:CGSizeMake(screenWidth, (tileSize + 5) * (int)round((([[self.fetchedResultsController fetchedObjects] count] + 1.0)/cols)+0.5) + (2*padding))];
+        if (animated)
+            [scrollView setContentOffset:CGPointMake(0, offsetCenterY) animated:NO];
+        if(animated){
+            [UIView commitAnimations];
+        }
+    }
+    
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -58,6 +112,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self layoutTilesForInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] animated:NO];
     [super viewWillAppear:animated];
 }
 
@@ -94,7 +149,7 @@
     if([segue.identifier isEqualToString:@"showPhoto"]){
         PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
         [photoViewController setPhotos:[[self fetchedResultsController] fetchedObjects]];
-        [photoViewController setCenterPageIdx:[sender tag]];
+        [photoViewController setCenterPageIdx:[sender tag] - 1];
     }
 }
 
@@ -146,5 +201,10 @@
     
     return __fetchedResultsController;
 }  
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    [self layoutTilesForInterfaceOrientation:toInterfaceOrientation animated:YES];
+
+}
 
 @end

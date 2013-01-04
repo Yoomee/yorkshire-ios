@@ -1,2 +1,4 @@
 *.xcodeproj/project.xcworkspace
 *.xcodeproj/xcuserdata
+nimbus
+.DS_Store

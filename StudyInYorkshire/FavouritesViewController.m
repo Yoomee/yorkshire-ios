@@ -7,14 +7,27 @@
 //
 
 #import "FavouritesViewController.h"
+#import "NoFavouritesViewController.h"
 #import "AppDelegate.h"
 #import "PageViewController.h"
 #import "Page.h"
 
 @implementation FavouritesViewController
+@synthesize detailViewController = _detailViewController;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize noFavouritesLabel = _noFavouritesLabel;
+
+- (void)awakeFromNib
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.clearsSelectionOnViewWillAppear = NO;
+        self.contentSizeForViewInPopover = CGSizeMake(320.0, 1024.0);
+    }
+    [super awakeFromNib];
+}
+
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -37,10 +50,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad && (_detailViewController == nil)){
+        self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+        if (self.fetchedResultsController.fetchedObjects.count > 0) {
+            self.detailViewController.page = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
+        }
+    }
+    self.navigationItem.title = @"Favourites";
     self.view.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.bounds];
+    UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.frame];
+    noFavourites.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     noFavourites.text = @"You haven't added\nany favourites yet";
     [noFavourites setTextAlignment:UITextAlignmentCenter];
     [noFavourites setNumberOfLines:2];
@@ -49,11 +72,6 @@
     [noFavourites setFont:[UIFont systemFontOfSize:18.0f]];
     [self.view addSubview:noFavourites];
     self.noFavouritesLabel = noFavourites;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
@@ -65,8 +83,24 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
+    if(iPad){
+        UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+        CGRect rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context,[UIColor blackColor].CGColor);
+        CGContextFillRect(context, rect);
+        UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        UINavigationBar *navBar = self.navigationController.navigationBar;
+        [navBar setBarStyle:UIBarStyleBlackTranslucent];
+        [navBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
+        [navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleFont,UITextAttributeFont, [UIColor colorWithWhite:0 alpha:0], UITextAttributeTextShadowColor,nil]];
+    } else {
+      [self.navigationController.navigationBar setHidden:YES];
+    }
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
     if([[self.fetchedResultsController fetchedObjects] count] == 0){
@@ -78,6 +112,18 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad && [[self.fetchedResultsController fetchedObjects] count] == 0){
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.tabBarController.viewControllers];
+        if(viewControllers.count > 0){
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
+        NoFavouritesViewController *noFavouritesViewController = [story instantiateViewControllerWithIdentifier:@"NoFavouritesViewController"];
+        [viewControllers addObject:noFavouritesViewController];
+        [viewControllers removeObjectAtIndex:3];
+        [self.tabBarController setViewControllers:viewControllers];
+        [self.tabBarController setSelectedViewController:noFavouritesViewController];
+        }
+    }
     [super viewDidAppear:animated];
 }
 
@@ -95,7 +141,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -185,13 +235,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(iPad){
+        Page *page = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        [_detailViewController setPage:page];
+    }
 }
 #pragma mark - Fetched results controller
 
