@@ -401,8 +401,8 @@
 
 -(void) didPressShareButton:(id)sender {
     // Create the item to share (in this example, a url)
-    NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
-    SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!" contentType:SHKURLContentTypeWebpage];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.studyyorkshire.com/%@",_page.permalink]];
+    SHKItem *item = [SHKItem URL:url title:[NSString stringWithFormat:@"Have you thought about studying in Yorkshire, UK? Here's some information about %@",_page.title] contentType:SHKURLContentTypeWebpage];
     
     // Get the ShareKit action sheet
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];

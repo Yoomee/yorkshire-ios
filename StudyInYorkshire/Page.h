@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * viewName;
 @property (nonatomic, retain) NSString * imageUID;
+@property (nonatomic, retain) NSString * permalink;
 @property (nonatomic, retain) NSNumber * position;
 @property (nonatomic, retain) NSNumber * backgroundNumber;
 @property (nonatomic, retain) NSNumber * headerNumber;

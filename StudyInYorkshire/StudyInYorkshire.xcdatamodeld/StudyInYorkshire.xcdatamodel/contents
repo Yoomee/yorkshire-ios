@@ -11,6 +11,7 @@
         <attribute name="imageUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="permalink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,7 +26,7 @@
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Page" positionX="-5364" positionY="855" width="128" height="300"/>
+        <element name="Page" positionX="-5364" positionY="855" width="128" height="315"/>
         <element name="Photo" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>
