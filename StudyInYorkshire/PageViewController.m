@@ -114,7 +114,7 @@
 
 -(void)configureWebViewAndActionButtons:(UIWebView *)aWebView{
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-    aWebView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later 
+    aWebView.scrollView.scrollEnabled = NO; 
     CGRect frame = aWebView.frame;
     frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
@@ -123,7 +123,7 @@
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
-    aWebView.frame = frame;       // Set the scrollView contentHeight back to the frame itself.
+    aWebView.frame = frame;
     UIScrollView *scrollView = (UIScrollView *)self.view;
     CGSize contentSize = scrollView.contentSize;
     contentSize.height = frame.size.height + frame.origin.y;
@@ -137,14 +137,21 @@
 
 - (void)setPage:(Page *)newPage
 {
-    _page = newPage;
-    // Update the view.
-    UIScrollView *scrollView = (UIScrollView *)self.view;
-    [scrollView setContentOffset:CGPointMake(0, -44.0)];
-    [self configureView];
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }    
+    [self setPage:newPage hidePopover:YES];
+}
+
+- (void)setPage:(Page *)newPage hidePopover:(BOOL)hidePopover
+{
+    if (_page != newPage) {
+        _page = newPage;
+        // Update the view.
+        UIScrollView *scrollView = (UIScrollView *)self.view;
+        [scrollView setContentOffset:CGPointMake(0, -44.0)];
+        [self configureView];
+        if (hidePopover && (self.masterPopoverController != nil)) {
+            [self.masterPopoverController dismissPopoverAnimated:YES];
+        }
+    }
 }
 
 - (void)viewDidUnload
@@ -369,8 +376,8 @@
         PageViewController *viewController = [story instantiateViewControllerWithIdentifier:@"PageViewController"];
         viewController.page = childPage;
         viewController.detailViewController = _detailViewController;
-        if(iPad && viewController.detailViewController.page == nil)
-            viewController.detailViewController.page = [childPage.sortedChildren objectAtIndex:0];
+        if(iPad && ((viewController.detailViewController.page == nil) || (_page.parent == nil)))
+            [viewController.detailViewController setPage:[childPage.sortedChildren objectAtIndex:0] hidePopover:NO];
         [self.navigationController pushViewController:viewController animated:YES];
     } else {
         [self.detailViewController setPage:childPage];
@@ -419,11 +426,15 @@
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
         self.navigationController.navigationBarHidden = NO;
+    if([self.view.backgroundColor isEqual:[UIColor grayColor]])
+        self.view.backgroundColor = [UIColor whiteColor];
     [self.actionButtons setHidden:YES];
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [self.actionButtons setHidden:NO];
+    if([self.view.backgroundColor isEqual:[UIColor whiteColor]])
+        self.view.backgroundColor = [UIColor grayColor];
     [self configureWebViewAndActionButtons];
 }
 

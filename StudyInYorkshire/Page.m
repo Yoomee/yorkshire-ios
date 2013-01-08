@@ -14,6 +14,7 @@
 
 @dynamic slug;
 @dynamic text;
+@dynamic permalink;
 @dynamic title;
 @dynamic viewName;
 @dynamic imageUID;

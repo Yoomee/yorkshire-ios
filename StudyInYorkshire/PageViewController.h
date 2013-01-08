@@ -21,6 +21,9 @@
 
 -(IBAction)didPressPageButton:(id)sender;
 -(IBAction)didPressBackButton:(id)sender;
+
+- (void)setPage:(Page *)newPage hidePopover:(BOOL)hidePopove;
+
 @property (weak, nonatomic) UIButton *favouriteButton;
 @property (weak, nonatomic) UIWebView *webView;
 @property (weak, nonatomic) UIView *actionButtons;
