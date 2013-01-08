@@ -21,6 +21,7 @@
 - (void)configureNavbar;
 - (void)configureWebViewAndActionButtons;
 - (void)configureWebViewAndActionButtons:(UIWebView *)aWebView;
+- (void)refreshButtons;
 @end
 
 @implementation PageViewController
@@ -37,7 +38,7 @@
 - (void)awakeFromNib
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+        self.contentSizeForViewInPopover = CGSizeMake(320.0, 1200.0);
     }
     [super awakeFromNib];
 }
@@ -61,7 +62,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-    float yOffset = (iPad ? 264 : 110);
+    int yOffset = (iPad ? 264 : 110);
     if(_page.image){
         UIView *imageWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width,yOffset + (iPad ? 76 : 32))];
         [imageWrapper setBackgroundColor:[UIColor whiteColor]];
@@ -71,12 +72,12 @@
         [imageView setImage:_page.image];
         [imageWrapper addSubview:imageView];
         [self.view addSubview:imageWrapper];
-        yOffset += yOffset + (iPad ? 76 : 32);
+        yOffset += yOffset + (iPad ? 68 : 16);
     }
-    UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120))];
+    UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectIntegral(CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120)))];
     [actionButtons setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     
-    UIView *actionButtonsWrapper = [[UIView alloc] initWithFrame:CGRectMake((iPad ? ((self.view.frame.size.width - 598) / 2)  : 16), 0, (iPad ? 598 : 280), (iPad ? 78: 120))];
+    UIView *actionButtonsWrapper = [[UIView alloc] initWithFrame:CGRectIntegral(CGRectMake((iPad ? ((self.view.frame.size.width - 598) / 2)  : 16), 0, (iPad ? 598 : 280), (iPad ? 78: 120)))];
     [actionButtonsWrapper setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     
     UIButton *shareButton = [[ActionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
@@ -119,9 +120,10 @@
     frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
     aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
-    if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44) < self.view.frame.size.height){
-        frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
+    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 76 : 32);
+    if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height) < self.view.frame.size.height){
+        NSLog(@"%f < %f", (frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44), self.view.frame.size.height);
+        frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height;
     }
     aWebView.frame = frame;
     UIScrollView *scrollView = (UIScrollView *)self.view;
@@ -129,7 +131,7 @@
     contentSize.height = frame.size.height + frame.origin.y;
     CGRect actionButtonsFrame = self.actionButtons.frame;
     actionButtonsFrame.origin.y = contentSize.height;
-    [self.actionButtons setFrame:actionButtonsFrame];
+    [self.actionButtons setFrame:CGRectIntegral(actionButtonsFrame)];
     [self.actionButtons setHidden:NO];
     contentSize.height += self.actionButtons.frame.size.height;
     [scrollView setContentSize:contentSize];
@@ -165,6 +167,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self configureNavbar];
+    [self refreshButtons];
     [super viewWillAppear:animated];
     [self.favouriteButton setTitle:_page.favouriteButtonTitle forState:UIControlStateNormal];
     if(self.splitViewController){
@@ -293,6 +296,17 @@
             CGSize constrainedSize = [title sizeWithFont:titleFont constrainedToSize:CGSizeMake(200, 99999999) lineBreakMode:UILineBreakModeWordWrap];
             UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(xOffset, offset, constrainedSize.width + 30, constrainedSize.height + 12)];
             [button setBackgroundColor:childPage.color];
+            
+            CGRect rect = CGRectMake(0, 0, 1, 1);
+            // Create a 1 by 1 pixel context
+            UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+            [childPage.darkerColor setFill];
+            UIRectFill(rect);   // Fill it with your color
+            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            [button setBackgroundImage:image forState:UIControlStateSelected];
+            [button setBackgroundImage:image forState:UIControlStateHighlighted];
+            
             [button setTitleEdgeInsets:UIEdgeInsetsMake(6, 15, 6, 15)];
             [button.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
             [button.titleLabel setNumberOfLines:0];
@@ -368,6 +382,18 @@
     }
 }
 
+-(void) refreshButtons{
+    if(self.detailViewController && self.detailViewController.page){
+        for (UIView *subview in self.view.subviews){
+            if ([subview isKindOfClass:[UIButton class]]) {
+                UIButton *button = (UIButton *)subview;
+                Page *childPage = [_page.sortedChildren objectAtIndex:button.tag];
+                [button setSelected:(childPage == self.detailViewController.page)];
+            }
+        }
+    }
+}
+
 -(IBAction) didPressPageButton:(id)sender{
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     Page *childPage = [_page.sortedChildren objectAtIndex:[sender tag]];
@@ -381,8 +407,8 @@
         [self.navigationController pushViewController:viewController animated:YES];
     } else {
         [self.detailViewController setPage:childPage];
-    }
-    
+        [self refreshButtons];
+    }    
 }
 -(IBAction) didPressBackButton:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -436,6 +462,8 @@
     if([self.view.backgroundColor isEqual:[UIColor whiteColor]])
         self.view.backgroundColor = [UIColor grayColor];
     [self configureWebViewAndActionButtons];
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    [scrollView setScrollEnabled:YES];
 }
 
 #pragma mark - Split view

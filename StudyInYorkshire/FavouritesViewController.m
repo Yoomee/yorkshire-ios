@@ -57,6 +57,7 @@
         if (self.fetchedResultsController.fetchedObjects.count > 0) {
             self.detailViewController.page = [self.fetchedResultsController.fetchedObjects objectAtIndex:0];
         }
+        [self.detailViewController splitViewController:nil willHideViewController:nil withBarButtonItem:nil forPopoverController:nil];
     }
     self.navigationItem.title = @"Favourites";
     self.view.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
@@ -116,12 +117,12 @@
     if(iPad && [[self.fetchedResultsController fetchedObjects] count] == 0){
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.tabBarController.viewControllers];
         if(viewControllers.count > 0){
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
-        NoFavouritesViewController *noFavouritesViewController = [story instantiateViewControllerWithIdentifier:@"NoFavouritesViewController"];
-        [viewControllers addObject:noFavouritesViewController];
-        [viewControllers removeObjectAtIndex:3];
-        [self.tabBarController setViewControllers:viewControllers];
-        [self.tabBarController setSelectedViewController:noFavouritesViewController];
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
+            NoFavouritesViewController *noFavouritesViewController = [story instantiateViewControllerWithIdentifier:@"NoFavouritesViewController"];
+            [viewControllers addObject:noFavouritesViewController];
+            [viewControllers removeObjectAtIndex:3];
+            [self.tabBarController setViewControllers:viewControllers];
+            [self.tabBarController setSelectedViewController:noFavouritesViewController];
         }
     }
     [super viewDidAppear:animated];
@@ -184,10 +185,10 @@
     [cell.textLabel setTextColor:[UIColor whiteColor]];
     [cell.textLabel setFont:[UIFont fontWithName:@"Palatino-Bold" size:21.0]];
     UIView *bg = [[UIView alloc] initWithFrame:cell.backgroundView.frame];
-    [bg setBackgroundColor:page.navigationBarColor];
+    [bg setBackgroundColor:page.color];
     cell.backgroundView = bg;
     UIView *selectedBg = [[UIView alloc] initWithFrame:cell.backgroundView.frame];
-    [selectedBg setBackgroundColor:page.navigationBarColor];
+    [selectedBg setBackgroundColor:page.darkerColor];
     cell.selectedBackgroundView = selectedBg;
     return cell;
 }

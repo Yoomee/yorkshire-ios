@@ -39,6 +39,7 @@
 
 -(NSArray *)sortedChildren;
 -(UIColor *)color;
+-(UIColor *)darkerColor;
 -(UIColor *)backgroundColor;
 -(UIColor *)navigationBarColor;
 -(UIImage *)headerImage;

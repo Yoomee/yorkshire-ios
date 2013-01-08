@@ -34,7 +34,6 @@
     [[UITabBar appearance] setBackgroundImage:img];
     [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
     
-    [self performSelector:@selector(flushOfflineQueue) withObject:nil afterDelay:0.5];
     [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bar_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)] forState:UIControlStateNormal 
                                           barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -43,11 +42,6 @@
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
 
     return YES;
-}
-
-- (void)flushOfflineQueue
-{	
-	[SHK flushOfflineQueue];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -71,6 +65,8 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    [tabBarController setSelectedViewController:[tabBarController.viewControllers objectAtIndex:0]];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
