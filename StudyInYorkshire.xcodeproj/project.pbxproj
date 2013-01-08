@@ -68,6 +68,7 @@
 		5B20B1A51670CED4005C7856 /* page.css in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1A31670CED4005C7856 /* page.css */; };
 		5B20B1AC1670F9AB005C7856 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B20B1AB1670F9AB005C7856 /* Page.m */; };
 		5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3494131681E1CC0088730A /* CaptionedPhotoView.m */; };
+		5B3967EA169B1A4D0087F60C /* YUTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3967E9169B1A4D0087F60C /* YUTabBarController.m */; };
 		5B4794A6167A440200CE0D41 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47945D167A43A200CE0D41 /* libShareKit.a */; };
 		5B4794A7167A447F00CE0D41 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B47945F167A43A200CE0D41 /* ShareKit.bundle */; };
 		5B4794A9167A44F600CE0D41 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */; };
@@ -260,6 +261,8 @@
 		5B20B1AB1670F9AB005C7856 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
 		5B3494121681E1CC0088730A /* CaptionedPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionedPhotoView.h; sourceTree = "<group>"; };
 		5B3494131681E1CC0088730A /* CaptionedPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionedPhotoView.m; sourceTree = "<group>"; };
+		5B3967E8169B1A4D0087F60C /* YUTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUTabBarController.h; sourceTree = "<group>"; };
+		5B3967E9169B1A4D0087F60C /* YUTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUTabBarController.m; sourceTree = "<group>"; };
 		5B47942F167A43A100CE0D41 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
 		5B4794A8167A44F600CE0D41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B4794AA167A450200CE0D41 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -472,6 +475,8 @@
 				5B9CEDA21678B4BB00B93934 /* FavouritesViewController.m */,
 				5B9C71F51695DD7200E765B8 /* IntelligentSplitViewController.h */,
 				5B9C71F61695DD7200E765B8 /* IntelligentSplitViewController.m */,
+				5B3967E8169B1A4D0087F60C /* YUTabBarController.h */,
+				5B3967E9169B1A4D0087F60C /* YUTabBarController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1006,6 +1011,7 @@
 				5B0235551684A286006B629E /* HomeViewController.m in Sources */,
 				5B9C71F01695AF1400E765B8 /* NoFavouritesViewController.m in Sources */,
 				5B9C71F71695DD7200E765B8 /* IntelligentSplitViewController.m in Sources */,
+				5B3967EA169B1A4D0087F60C /* YUTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
