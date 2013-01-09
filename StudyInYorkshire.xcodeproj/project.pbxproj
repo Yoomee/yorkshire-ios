@@ -78,6 +78,8 @@
 		5B4794B1167A453200CE0D41 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794B0167A453200CE0D41 /* CoreFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5B4794C7167A486000CE0D41 /* YUShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */; };
 		5B4794C9167A49F800CE0D41 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4794C8167A49F800CE0D41 /* CoreLocation.framework */; };
+		5B547128169D7AA500012498 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B547127169D7AA500012498 /* Default.png */; };
+		5B54712A169D7AA800012498 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B547129169D7AA800012498 /* Default@2x.png */; };
 		5B60AFCE16778DC700A35818 /* StudyInYorkshire.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */; };
 		5B66FED9166F704600BA4C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B66FED8166F704600BA4C65 /* CoreData.framework */; };
 		5B66FEE4166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B66FEE2166F751800BA4C65 /* StudyInYorkshire.xcdatamodeld */; };
@@ -278,6 +280,8 @@
 		5B4794C5167A486000CE0D41 /* YUShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUShareKitConfigurator.h; sourceTree = "<group>"; };
 		5B4794C6167A486000CE0D41 /* YUShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUShareKitConfigurator.m; sourceTree = "<group>"; };
 		5B4794C8167A49F800CE0D41 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5B547127169D7AA500012498 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../Default.png; sourceTree = "<group>"; };
+		5B547129169D7AA800012498 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../Default@2x.png"; sourceTree = "<group>"; };
 		5B60AFCD16778DC700A35818 /* StudyInYorkshire.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = StudyInYorkshire.sqlite; sourceTree = "<group>"; };
 		5B66FED8166F704600BA4C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5B66FEE3166F751800BA4C65 /* StudyInYorkshire.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudyInYorkshire.xcdatamodel; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 		5B9C71ED1695AC2000E765B8 /* Launch images */ = {
 			isa = PBXGroup;
 			children = (
+				5B547129169D7AA800012498 /* Default@2x.png */,
+				5B547127169D7AA500012498 /* Default.png */,
 				5B9C71EB1695AC1400E765B8 /* Default-Landscape~ipad.png */,
 				5B9C71E81695AB8E00E765B8 /* Default-Portrait~ipad.png */,
 			);
@@ -984,6 +990,8 @@
 				5BB6124D169C356800041541 /* header_44.jpg in Resources */,
 				5BB6124E169C356800041541 /* header_45.jpg in Resources */,
 				5BB6124F169C356800041541 /* header_46.jpg in Resources */,
+				5B547128169D7AA500012498 /* Default.png in Resources */,
+				5B54712A169D7AA800012498 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
