@@ -110,7 +110,7 @@
     Photo *photo = [self.photos objectAtIndex:pageIndex];
     CaptionedPhotoView* captionedView = (CaptionedPhotoView *)pageView;
     if(photo.caption)
-    captionedView.caption = photo.caption;
+    captionedView.caption = [photo.caption stringByReplacingOccurrencesOfString:@"--" withString:@"–"];
     return pageView;
 }
 -(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
