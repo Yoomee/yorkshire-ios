@@ -144,7 +144,7 @@
         self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
     }
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 250, 126)];
-    label.text = @"Study at Universities in Yorkshire";
+    label.text = @"Study at Universities in Yorkshire, UK";
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
