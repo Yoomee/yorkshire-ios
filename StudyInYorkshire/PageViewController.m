@@ -122,8 +122,7 @@
     aWebView.frame = frame;
     frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 76 : 32);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height) < self.view.frame.size.height){
-        NSLog(@"%f < %f", (frame.size.height + frame.origin.y + self.actionButtons.frame.size.height - 44), self.view.frame.size.height);
-        frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height;
+        frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
     aWebView.frame = frame;
     UIScrollView *scrollView = (UIScrollView *)self.view;

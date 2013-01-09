@@ -27,7 +27,6 @@
 }
 
 -(void)setSelectedIndex:(NSUInteger)selectedIndex{
-    NSLog(@"setSelectedIndex");
     [super setSelectedIndex:selectedIndex];
 }
 

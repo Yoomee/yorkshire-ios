@@ -10,8 +10,9 @@
 #import "SHKConfiguration.h"
 #import "YUShareKitConfigurator.h"
 #import "Page.h"
-#import "PageViewController.h"
+#import "YUTabBarController.h"
 #import "SHKFacebook.h"
+#import "SplashScreenViewController.h"
 
 @implementation AppDelegate
 
@@ -40,6 +41,13 @@
     
     DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(!iPad){
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:NULL];
+        SplashScreenViewController *splashScreenViewController = (SplashScreenViewController *)[story instantiateViewControllerWithIdentifier:@"SplashScreenViewController"];  
+        self.window.rootViewController = splashScreenViewController;
+    }
 
     return YES;
 }
@@ -65,6 +73,12 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if(!iPad){
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:NULL];
+        UITabBarController *tabBarController = (UITabBarController *)[story instantiateViewControllerWithIdentifier:@"TabBarController"];  
+        self.window.rootViewController = tabBarController;
+    }
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     [tabBarController setSelectedViewController:[tabBarController.viewControllers objectAtIndex:0]];
 }
