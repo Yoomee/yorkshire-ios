@@ -437,6 +437,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.studyyorkshire.com/%@",_page.permalink]];
     SHKItem *item = [SHKItem URL:url title:[NSString stringWithFormat:@"Have you thought about studying in Yorkshire, UK? Here's some information about %@",_page.title] contentType:SHKURLContentTypeWebpage];
     
+    item.facebookURLSharePictureURI = @"http://www.studyyorkshire.com/assets/facebook.png";
     // Get the ShareKit action sheet
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     

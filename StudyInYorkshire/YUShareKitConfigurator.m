@@ -16,11 +16,11 @@
  These values are used by any service that shows 'shared from XYZ'
  */
 - (NSString*)appName {
-	return @"Study at universities in Yorkshire, UK";
+	return @"the app";
 }
 
 - (NSString*)appURL {
-	return @"http://art.100daybiblechallenge.com";
+	return @"http://studyyorkshire.com";
 }
 
 - (NSString*)sharersPlistName{
