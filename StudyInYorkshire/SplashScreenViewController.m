@@ -47,10 +47,6 @@
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hideSplashScreen) userInfo:nil repeats:NO];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSLog(@"%@",segue.identifier);
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];

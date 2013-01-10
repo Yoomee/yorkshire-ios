@@ -227,13 +227,11 @@
         int count = 0;
         for(int i=0;i < self.view.subviews.count; i++){
             UIView *subView = [self.view.subviews objectAtIndex:i];
-//            if(subView.tag != 0){
                 CGRect frame = subView.frame;
                 frame.origin.x = padding + ((count)%cols)*(frame.size.width + padding);
                 frame.origin.y = padding + ((count)/cols)*(frame.size.height + padding);
                 [subView setFrame:frame];
                 count++;
-//            }
         }
         if(animated){
             [UIView commitAnimations];

@@ -13,7 +13,6 @@
 
 -(void)setSelectedViewController:(UIViewController *)selectedViewController{
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-    NSLog(@"indexOf:%d",[self.viewControllers indexOfObject:selectedViewController]);
     if (iPad && ([self.viewControllers indexOfObject:selectedViewController] == 0) && (![selectedViewController isKindOfClass:[HomeViewController class]])){
         NSMutableArray *myViewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         [myViewControllers removeObjectAtIndex:0];
