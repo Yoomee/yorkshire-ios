@@ -290,6 +290,8 @@
             self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
             self.splitViewController.delegate = self.detailViewController;
         }
+        if(self.actionButtons != nil)
+            [self.actionButtons removeFromSuperview];
         for(id object in self.view.subviews){
             UIView *subview = (UIView *)object;
             [subview removeFromSuperview];
