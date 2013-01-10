@@ -67,6 +67,8 @@
 		5B19598B16777E0200F96191 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B19598A16777E0200F96191 /* MapViewController.m */; };
 		5B20B1A51670CED4005C7856 /* page.css in Resources */ = {isa = PBXBuildFile; fileRef = 5B20B1A31670CED4005C7856 /* page.css */; };
 		5B20B1AC1670F9AB005C7856 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B20B1AB1670F9AB005C7856 /* Page.m */; };
+		5B274501169F1F3100B00992 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B2744FF169F1F3100B00992 /* left-arrow.png */; };
+		5B274502169F1F3100B00992 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B274500169F1F3100B00992 /* right-arrow.png */; };
 		5B3494141681E1CC0088730A /* CaptionedPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3494131681E1CC0088730A /* CaptionedPhotoView.m */; };
 		5B3967EA169B1A4D0087F60C /* YUTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3967E9169B1A4D0087F60C /* YUTabBarController.m */; };
 		5B4794A6167A440200CE0D41 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47945D167A43A200CE0D41 /* libShareKit.a */; };
@@ -268,6 +270,8 @@
 		5B20B1A41670CED4005C7856 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = en; path = en.lproj/page.css; sourceTree = "<group>"; };
 		5B20B1AA1670F9AB005C7856 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		5B20B1AB1670F9AB005C7856 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
+		5B2744FF169F1F3100B00992 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "left-arrow.png"; path = "Arrows/left-arrow.png"; sourceTree = "<group>"; };
+		5B274500169F1F3100B00992 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "right-arrow.png"; path = "Arrows/right-arrow.png"; sourceTree = "<group>"; };
 		5B3494121681E1CC0088730A /* CaptionedPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptionedPhotoView.h; sourceTree = "<group>"; };
 		5B3494131681E1CC0088730A /* CaptionedPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptionedPhotoView.m; sourceTree = "<group>"; };
 		5B3967E8169B1A4D0087F60C /* YUTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUTabBarController.h; sourceTree = "<group>"; };
@@ -464,6 +468,15 @@
 			path = Backgrounds;
 			sourceTree = "<group>";
 		};
+		5B2744FE169F1F2400B00992 /* Arrows */ = {
+			isa = PBXGroup;
+			children = (
+				5B2744FF169F1F3100B00992 /* left-arrow.png */,
+				5B274500169F1F3100B00992 /* right-arrow.png */,
+			);
+			name = Arrows;
+			sourceTree = "<group>";
+		};
 		5B479430167A43A100CE0D41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,6 +536,7 @@
 		5B66FEED166FB61600BA4C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B2744FE169F1F2400B00992 /* Arrows */,
 				5B9C71ED1695AC2000E765B8 /* Launch images */,
 				5B836FAC1680CE0000CAC60E /* Buttons */,
 				5BA294DF1672239900DE10BD /* Headers */,
@@ -997,6 +1011,8 @@
 				5BB6124F169C356800041541 /* header_46.jpg in Resources */,
 				5B547128169D7AA500012498 /* Default.png in Resources */,
 				5B54712A169D7AA800012498 /* Default@2x.png in Resources */,
+				5B274501169F1F3100B00992 /* left-arrow.png in Resources */,
+				5B274502169F1F3100B00992 /* right-arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1183,7 +1199,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2DEBC683-B95E-4E82-B9DD-AD155904426C";
+				PROVISIONING_PROFILE = "1A809ADB-656A-4E4E-8BF9-B58C3AC50765";
 				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "ShareKit/**";

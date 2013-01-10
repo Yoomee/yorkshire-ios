@@ -12,8 +12,42 @@
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ihD-MC-0ze">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="WID-bo-9Ws">
+                                <rect key="frame" x="0.0" y="129" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="«" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="bDq-pV-atn">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="8" contentMode="left" text="»" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="X86-bD-YKE">
+                                        <rect key="frame" x="280" y="0.0" width="60" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" tag="1" contentMode="center" image="left-arrow.png" id="aCb-Mv-eN0">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="2" contentMode="center" image="right-arrow.png" id="h7k-2e-aw9">
+                                        <rect key="frame" x="240" y="0.0" width="80" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                     </scrollView>
                     <navigationItem key="navigationItem" id="BwJ-eu-srz"/>
+                    <connections>
+                        <outlet property="scrollArrowsView" destination="WID-bo-9Ws" id="p2x-Fk-i7N"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1179" y="-633"/>
@@ -228,6 +262,8 @@
         <image name="icon_home.png" width="30" height="30"/>
         <image name="icon_map.png" width="30" height="30"/>
         <image name="icon_photo.png" width="30" height="30"/>
+        <image name="left-arrow.png" width="46" height="24"/>
+        <image name="right-arrow.png" width="46" height="24"/>
     </resources>
     <classes>
         <class className="FavouritesViewController" superclassName="UITableViewController">
@@ -244,6 +280,7 @@
             <relationships>
                 <relationship kind="action" name="didPressBackButton:"/>
                 <relationship kind="action" name="didPressPageButton:"/>
+                <relationship kind="outlet" name="scrollArrowsView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="PhotoViewController" superclassName="UIViewController">

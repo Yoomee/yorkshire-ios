@@ -27,9 +27,12 @@
 @implementation PageViewController
 @synthesize favouriteButton = _favouriteButton;
 @synthesize actionButtons = _actionButtons;
+@synthesize scrollArrowsView = _scrollArrowsView;
 @synthesize webView;
 
 @synthesize page = _page;
+@synthesize nextPage = _nextPage;
+@synthesize swiping = _swiping;
 @synthesize detailViewController = _detailViewController;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
@@ -54,9 +57,17 @@
 - (void)viewDidLoad
 {
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    scrollView.directionalLockEnabled = YES;
+    scrollView.delegate = self;
+    _swiping = NO;
     [super viewDidLoad];
-    if (!iPad && (_page == nil)) {
-        self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+    if (!iPad) {
+        [_scrollArrowsView setAlpha:0.0];
+        [self.view sendSubviewToBack:_scrollArrowsView];
+        if (_page == nil) {
+            self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
+        }
     }
 }
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
@@ -158,6 +169,7 @@
 - (void)viewDidUnload
 {
     [self setFavouriteButton:nil];
+    [self setScrollArrowsView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -180,8 +192,16 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
     [super viewDidAppear:animated];
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    if(!iPad){
+        if([_page.children count] == 0){
+            scrollView.alwaysBounceHorizontal = YES;
+        } else {
+            scrollView.alwaysBounceHorizontal = NO;
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -283,9 +303,11 @@
     
     self.navigationItem.title = _page.title;
     
+    UIScrollView *scrollView = (UIScrollView *)self.view;
+    CGSize contentSize = scrollView.contentSize;
+    CGRect scrollViewFrame = scrollView.frame;
     
     if([_page.children count] > 0){
-        UIScrollView *scrollView = (UIScrollView *)self.view;
         __block float offset = 16;
         NSUInteger count = 0;
         for(id object in _page.sortedChildren){
@@ -326,12 +348,22 @@
             offset += button.frame.size.height + 20;
             count ++;
         };
-        CGSize contentSize = scrollView.contentSize;
         contentSize.height = offset;
-        [scrollView setContentSize:contentSize];
         [scrollView setBackgroundColor:_page.backgroundColor];
     } else {
         [self.view setBackgroundColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
+        
+        
+        NSArray *siblings = _page.parent.sortedChildren;
+        int index = [siblings indexOfObject:_page];
+        for(UIView *subview in _scrollArrowsView.subviews){
+            if(subview.tag == 1){
+                subview.hidden = (index == 0);
+            } else if (subview.tag == 2){
+                subview.hidden = (index == (siblings.count - 1));
+            }
+        }
+        
         float yOffset = (iPad ? 264 : 110);
         UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,yOffset)];
         [headerImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -356,6 +388,8 @@
         //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.co.uk"]]
         [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
     }
+    [scrollView setContentSize:contentSize];
+    [scrollView setFrame:scrollViewFrame];
 }
 
 -(void)configureNavbar{
@@ -481,5 +515,61 @@
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
+
+#pragma mark - Scroll view delegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (_swiping) {
+        _swiping = NO;
+        self.navigationItem.title = nil;
+        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+        [UIView animateWithDuration:0.4 animations:^{
+                float offsetX =  (scrollView.contentOffset.x > 0) ? 320 : -320;
+                [scrollView setContentOffset:CGPointMake(offsetX, scrollView.contentOffset.y) animated:NO];
+            _scrollArrowsView.alpha = 0;
+            } completion:^(BOOL finished){
+                [self setPage:_nextPage];
+                _nextPage = nil;
+        }];
+    } else {
+        float offset = fabsf(scrollView.contentOffset.x);
+        CGRect frame = _scrollArrowsView.frame;
+        frame.origin.y = scrollView.contentOffset.y + 178;
+        for (UIView *subview in _scrollArrowsView.subviews){
+            CGRect frame = subview.frame;
+            frame.origin.x = scrollView.contentOffset.x;
+            if(subview.tag == 2){
+                frame.origin.x += 240;
+            }
+            subview.frame = frame;
+        }
+        _scrollArrowsView.frame = frame;
+        if (_nextPage == nil) {
+            _scrollArrowsView.alpha = (offset / 80);
+        }
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    CGPoint contentOffset = scrollView.contentOffset;
+    if(fabsf(scrollView.contentOffset.x) > 60){
+        NSArray *siblings = _page.parent.sortedChildren;
+        NSLog(@"%f",contentOffset.x);
+        int index = [siblings indexOfObject:_page];
+        if(contentOffset.x > 0){
+            index++;
+        } else {
+            index--;
+        }
+        if((index >= 0) && (index < siblings.count)){            
+            _swiping = YES;
+            _nextPage = [siblings objectAtIndex:index];
+            [scrollView setContentOffset:contentOffset animated:NO];
+        }
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+}
+
 
 @end

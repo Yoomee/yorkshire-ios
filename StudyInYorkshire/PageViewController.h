@@ -11,11 +11,13 @@
 
 @class Page;
 
-@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate, UISplitViewControllerDelegate>
+@interface PageViewController : UIViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate, UISplitViewControllerDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) PageViewController *detailViewController;
 
 @property (nonatomic, strong) Page *page;
+@property (nonatomic, strong) Page *nextPage;
+@property (nonatomic, assign) BOOL swiping;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -27,5 +29,6 @@
 @property (weak, nonatomic) UIButton *favouriteButton;
 @property (weak, nonatomic) UIWebView *webView;
 @property (weak, nonatomic) UIView *actionButtons;
+@property (weak, nonatomic) IBOutlet UIView *scrollArrowsView;
 
 @end
