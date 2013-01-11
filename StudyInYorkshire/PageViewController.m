@@ -549,7 +549,6 @@
     CGPoint contentOffset = scrollView.contentOffset;
     if(fabsf(scrollView.contentOffset.x) > 40){
         NSArray *siblings = _page.parent.sortedChildren;
-        NSLog(@"%f",contentOffset.x);
         int index = [siblings indexOfObject:_page];
         if(contentOffset.x > 0){
             index++;
