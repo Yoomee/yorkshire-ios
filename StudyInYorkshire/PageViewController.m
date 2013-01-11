@@ -119,7 +119,7 @@
     frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
     aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 32);
+    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 76 : 32);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
