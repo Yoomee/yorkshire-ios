@@ -119,7 +119,7 @@
     frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
     aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
+    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 32);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
@@ -547,7 +547,7 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGPoint contentOffset = scrollView.contentOffset;
-    if(fabsf(scrollView.contentOffset.x) > 60){
+    if(fabsf(scrollView.contentOffset.x) > 40){
         NSArray *siblings = _page.parent.sortedChildren;
         NSLog(@"%f",contentOffset.x);
         int index = [siblings indexOfObject:_page];
