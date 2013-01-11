@@ -52,7 +52,6 @@
 
 -(NSString *)html{
     NSString *output = [NSString stringWithFormat:@"<html><head><link rel='stylesheet' type='text/css' href='file://%@'></head><body>",[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"]];
-    //NSString *output = @"<html><head><link rel='stylesheet' type='text/css' href='page.css'></head><body>";
     if (![self.viewName isEqualToString:@"university"]){
         output = [NSString stringWithFormat:@"%@<h1 class='page-title'>%@</h1>",output,self.title];
     }
