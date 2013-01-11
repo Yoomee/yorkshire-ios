@@ -88,7 +88,7 @@
 
 -(UIImage *)image{
     if (self.imageUID) {
-        NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.imageUID];
+        NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],[self.imageUID stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"]];
         return [UIImage imageWithContentsOfFile:path];
     } else {
         return nil;

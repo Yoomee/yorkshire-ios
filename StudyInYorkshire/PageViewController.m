@@ -73,18 +73,6 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {   
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
-    int yOffset = (iPad ? 264 : 110);
-    if(_page.image){
-        UIView *imageWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width,yOffset + (iPad ? 76 : 32))];
-        [imageWrapper setBackgroundColor:[UIColor whiteColor]];
-        [imageWrapper setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((iPad ? 38 : 16), (iPad ? 38 : 16), self.view.frame.size.width - (iPad ? 76 : 32),yOffset)];
-        [imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [imageView setImage:_page.image];
-        [imageWrapper addSubview:imageView];
-        [self.view addSubview:imageWrapper];
-        yOffset += yOffset + (iPad ? 68 : 16);
-    }
     UIView *actionButtons = [[UIView alloc] initWithFrame:CGRectIntegral(CGRectMake(0, 247, self.view.frame.size.width, (iPad ? 78: 120)))];
     [actionButtons setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     
@@ -131,7 +119,7 @@
     frame.size.width = self.view.frame.size.width;   
     frame.size.height = 1;
     aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 76 : 32);
+    frame.size.height = aWebView.scrollView.contentSize.height + (iPad ? 38 : 16);
     if((frame.size.height + frame.origin.y + self.actionButtons.frame.size.height) < self.view.frame.size.height){
         frame.size.height = self.view.frame.size.height - frame.origin.y - self.actionButtons.frame.size.height - 44;
     }
@@ -284,17 +272,16 @@
 - (void)configureView
 {
     [self configureNavbar];
+    for(id object in self.view.subviews){
+        UIView *subview = (UIView *)object;
+        if(subview != _scrollArrowsView)
+            [subview removeFromSuperview];
+    }
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if(iPad){
         if(_detailViewController == nil){
             self.detailViewController = (PageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
             self.splitViewController.delegate = self.detailViewController;
-        }
-        if(self.actionButtons != nil)
-            [self.actionButtons removeFromSuperview];
-        for(id object in self.view.subviews){
-            UIView *subview = (UIView *)object;
-            [subview removeFromSuperview];
         }
         UISwipeGestureRecognizer* swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
         swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
@@ -354,8 +341,6 @@
         [scrollView setBackgroundColor:_page.backgroundColor];
     } else {
         [self.view setBackgroundColor:[UIColor colorWithWhite:0.200 alpha:1.000]];
-        
-        
         NSArray *siblings = _page.parent.sortedChildren;
         int index = [siblings indexOfObject:_page];
         for(UIView *subview in _scrollArrowsView.subviews){
@@ -373,21 +358,30 @@
         [headerImageView setImage:_page.headerImage];
         [self.view addSubview:headerImageView];
         if(_page.image){
-            yOffset += yOffset + (iPad ? 76 : 32);
+            UIImage *image = _page.image;
+            float width =  self.view.frame.size.width - (iPad ? 76 : 32);
+            float scale = image.size.width / (width * (iPad ? 0.6 : 1.0));
+            if(scale > 1){
+                image = [UIImage imageWithCGImage:[image CGImage] scale:scale orientation:UIImageOrientationUp];
+            }
+            UIImageView *imageView = [[UIImageView  alloc] initWithFrame:CGRectIntegral(CGRectMake(0, yOffset, self.view.frame.size.width, image.size.height + (iPad ? 76 : 32)))];
+            [imageView setImage:image];
+            [imageView setBackgroundColor:[UIColor whiteColor]];
+            [imageView setContentMode:UIViewContentModeCenter];
+            [imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+            [self.view addSubview:imageView];
+            yOffset += imageView.frame.size.height - (iPad ? 38 : 16);
         }
-        
         if(self.webView != nil){
             [self.webView removeFromSuperview];
             self.webView = nil;
         }
-        
         UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, yOffset, self.view.frame.size.width, 647)];
         [aWebView setDelegate:self];
         [aWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         NSString *path = [NSString stringWithFormat:@"file://%@",[[[[NSBundle mainBundle] pathForResource:@"page" ofType:@"css"] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
         self.webView = aWebView;
         [self.view addSubview:self.webView];
-        //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.co.uk"]]
         [self.webView loadHTMLString:_page.html baseURL:[NSURL URLWithString:path]];
     }
     [scrollView setContentSize:contentSize];
