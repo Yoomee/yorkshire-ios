@@ -7,7 +7,7 @@
         <attribute name="colorR" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="favourite" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="favouritedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="headerNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="headerImageUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>

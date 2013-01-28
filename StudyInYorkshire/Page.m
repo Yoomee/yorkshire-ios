@@ -20,7 +20,7 @@
 @dynamic imageUID;
 @dynamic position;
 @dynamic backgroundNumber;
-@dynamic headerNumber;
+@dynamic headerImageUID;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic favourite;
@@ -76,18 +76,31 @@
 }
 
 -(UIImage *)headerImage{
-    if ([self.headerNumber intValue] > 0) {
-        return [UIImage imageNamed:[NSString stringWithFormat:@"header_%d.jpg",[self.headerNumber intValue]]];
-    } else if (self.parent){
-        return self.parent.headerImage;
-    }else{
-        return [UIImage imageNamed:@"header_1.jpg"];
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
+    if (self.headerImageUID) {
+        NSString *path = [[NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.headerImageUID] stringByDeletingPathExtension];
+        if(iPad)
+            path = [path stringByAppendingString:@"~ipad"];
+        if([UIScreen mainScreen].scale == 2.0)
+            path = [path stringByAppendingString:@"@2x"];
+        path = [path stringByAppendingString:@".jpg"];
+        NSLog(@"%@",path);
+        return [UIImage imageWithContentsOfFile:path];
+    } else {
+        return nil;
     }
 }
 
 -(UIImage *)image{
+    BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if (self.imageUID) {
-        NSString *path = [NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],[self.imageUID stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"]];
+        NSString *path = [[NSString stringWithFormat:@"%@/assets/%@",[[NSBundle mainBundle] resourcePath],self.imageUID] stringByDeletingPathExtension];
+        if(iPad)
+            path = [path stringByAppendingString:@"~ipad"];
+        if([UIScreen mainScreen].scale == 2.0)
+            path = [path stringByAppendingString:@"@2x"];
+        path = [path stringByAppendingString:@".jpg"];
+        NSLog(@"%@",path);
         return [UIImage imageWithContentsOfFile:path];
     } else {
         return nil;

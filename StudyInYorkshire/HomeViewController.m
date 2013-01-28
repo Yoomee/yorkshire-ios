@@ -182,7 +182,7 @@
         label.text = childPage.title;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 250, 92)];
-        imageView.image = [[[childPage sortedChildren] objectAtIndex:0] headerImage];
+        imageView.image = childPage.headerImage;
         [button addSubview:imageView];
         [button addSubview:label];
         [self.view addSubview:button];
