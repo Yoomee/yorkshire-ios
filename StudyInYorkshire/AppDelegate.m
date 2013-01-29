@@ -169,6 +169,18 @@
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"StudyInYorkshire.sqlite"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];    
+    NSString *dbVersion = [defaults stringForKey:@"dbVersion"]; 
+    NSLog(@"%@",dbVersion);
+    if (!(dbVersion && ([dbVersion isEqualToString:@"1.1"]))) {
+        NSLog(@"Removing database");
+        [fileManager removeItemAtURL:storeURL error:NULL];
+        [defaults setObject:@"1.1" forKey:@"dbVersion"];
+        [defaults synchronize];
+    }    
+    [fileManager removeItemAtURL:storeURL error:NULL];
     // If the expected store doesn't exist, copy the default store.
     if (![fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
