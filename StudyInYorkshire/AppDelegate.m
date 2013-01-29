@@ -180,7 +180,6 @@
         [defaults setObject:@"1.1" forKey:@"dbVersion"];
         [defaults synchronize];
     }    
-    [fileManager removeItemAtURL:storeURL error:NULL];
     // If the expected store doesn't exist, copy the default store.
     if (![fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
