@@ -173,7 +173,6 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];    
     NSString *dbVersion = [defaults stringForKey:@"dbVersion"]; 
-    NSLog(@"%@",dbVersion);
     if (!(dbVersion && ([dbVersion isEqualToString:@"1.1"]))) {
         NSLog(@"Removing database");
         [fileManager removeItemAtURL:storeURL error:NULL];
