@@ -166,54 +166,82 @@
         return __persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"StudyInYorkshire.sqlite"];
-    
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"StudyInYorkshire.sqlite"];    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];    
-    NSString *dbVersion = [defaults stringForKey:@"dbVersion"]; 
-    if (!(dbVersion && ([dbVersion isEqualToString:@"1.1"]))) {
-        NSLog(@"Removing database");
-        [fileManager removeItemAtURL:storeURL error:NULL];
-        [defaults setObject:@"1.1" forKey:@"dbVersion"];
-        [defaults synchronize];
-    }    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // If the expected store doesn't exist, copy the default store.
-    if (![fileManager fileExistsAtPath:[storeURL path]]) {
-        NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
-        if (defaultStorePath) {
-            [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
+    if ([fileManager fileExistsAtPath:[storeURL path]]) {
+        NSString *dbVersion = [defaults stringForKey:@"dbVersion"];
+        if (dbVersion && ([dbVersion isEqualToString:@"1.2"])) {
+            NSLog(@"Database up to date");
+        } else {
+            NSLog(@"Needs upgrading");
+            // Load existing database and collect favourites
+            NSPersistentStoreCoordinator *existingPSC = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+            [existingPSC addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:nil];
+            NSManagedObjectContext *existingManagedObjectContext = [[NSManagedObjectContext alloc] init];
+            [existingManagedObjectContext setPersistentStoreCoordinator:existingPSC];
+
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Page" inManagedObjectContext:existingManagedObjectContext];
+            [fetchRequest setEntity:entity];
+            [fetchRequest setFetchBatchSize:20];
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+            [fetchRequest setSortDescriptors:sortDescriptors];
+            NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:existingManagedObjectContext sectionNameKeyPath:nil cacheName:nil];
+            [fetchedResultsController performFetch:nil];
+            NSMutableArray *favourites = [[NSMutableArray alloc] initWithCapacity:[fetchedResultsController fetchedObjects].count];
+            for(Page *page in [fetchedResultsController fetchedObjects]){
+                if([page.favourite boolValue]){       
+                    [favourites insertObject:page atIndex:0];
+                    NSLog(@"Favourite: %@",page.title);
+                }
+            }
+            
+            // Remove existing sqlite file and copy in new one
+            NSURL *newStoreURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"]];
+            [fileManager removeItemAtURL:storeURL error:nil];
+            [fileManager copyItemAtPath:[newStoreURL path] toPath:[storeURL path] error:nil];
+            
+            // Load new database
+            NSPersistentStoreCoordinator *newPSC = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+            [newPSC addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:nil];
+            NSManagedObjectContext *newManagedObjectContext = [[NSManagedObjectContext alloc] init];
+            [newManagedObjectContext setPersistentStoreCoordinator:newPSC];
+            NSFetchRequest *newFetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *newEntity = [NSEntityDescription entityForName:@"Page" inManagedObjectContext:newManagedObjectContext];
+            [newFetchRequest setEntity:newEntity];
+            [newFetchRequest setFetchBatchSize:20];
+            [newFetchRequest setSortDescriptors:sortDescriptors];
+            NSFetchedResultsController *newFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:newManagedObjectContext sectionNameKeyPath:nil cacheName:nil];
+            [newFetchedResultsController performFetch:nil];
+            
+            // Set the favourites
+            for(Page *page in [newFetchedResultsController fetchedObjects]){
+                for (Page *favouritePage in favourites) {
+                    if ([favouritePage.title isEqualToString:page.title]) {
+                        page.favourite = favouritePage.favourite;
+                        page.favouritedAt = favouritePage.favouritedAt;
+                    }
+                }
+            }
+            [newManagedObjectContext save:nil];
+            [defaults setObject:@"1.2" forKey:@"dbVersion"];
         }
+    } else {
+        NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
+        [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
+        [defaults setObject:@"1.2" forKey:@"dbVersion"];
     }
+    [defaults synchronize];
+
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
     {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter: 
-         [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    
@@ -251,3 +279,4 @@
 }
 
 @end
+
