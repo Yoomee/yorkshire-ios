@@ -170,7 +170,6 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    // If the expected store doesn't exist, copy the default store.
     if ([fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *dbVersion = [defaults stringForKey:@"dbVersion"];
         if (dbVersion && ([dbVersion isEqualToString:@"1.2"])) {
@@ -232,7 +231,7 @@
         }
     } else {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
-        [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:NULL];
+        [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:nil];
         [defaults setObject:@"1.2" forKey:@"dbVersion"];
     }
     [defaults synchronize];
