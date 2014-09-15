@@ -12,3 +12,5 @@ cd yorkshire-ios
 git submodule init
 git submodule update
 ```
+
+Then open 'StudyInYorkshire.xcodeproj' in XCode.
