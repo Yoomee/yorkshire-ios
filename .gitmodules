@@ -3,4 +3,4 @@
 	url = git@github.com:Yoomee/nimbus.git
 [submodule "ShareKit"]
 	path = ShareKit
-	url = git@github.com:Yoomee/sharekit-yorkshire.git
+	url = https://github.com/Yoomee/sharekit-yorkshire.git
