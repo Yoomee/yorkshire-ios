@@ -65,7 +65,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="Abn-oI-Wte"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Prp-mm-3LK" userLabel="First Responder" sceneMemberID="firstResponder"/>

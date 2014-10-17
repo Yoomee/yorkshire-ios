@@ -188,7 +188,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *dbVersion = [defaults stringForKey:@"dbVersion"];
-        if (dbVersion && ([dbVersion isEqualToString:@"1.4"])) {
+        if (dbVersion && ([dbVersion isEqualToString:@"1.3"])) {
             NSLog(@"Database up to date");
         } else {
             NSLog(@"Needs upgrading");
