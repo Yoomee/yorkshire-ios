@@ -6,13 +6,17 @@
 //  Copyright (c) 2012 Yoomee. All rights reserved.
 //
 
+
+//Removed some imports - RMV_SHK
 #import "AppDelegate.h"
-#import "SHKConfiguration.h"
-#import "YUShareKitConfigurator.h"
+//#import "SHKConfiguration.h"
+//#import "YUShareKitConfigurator.h"
 #import "Page.h"
-#import "YUTabBarController.h"
-#import "SHKFacebook.h"
+//#import "YUTabBarController.h"
+//#import "SHKFacebook.h"
 #import "SplashScreenViewController.h"
+#import <MessageUI/MessageUI.h>
+
 
 @implementation AppDelegate
 
@@ -24,7 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
     // Override point for customization after application launch.
-    [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -33,19 +37,31 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [[UITabBar appearance] setBackgroundImage:img];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
     
-    [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bar_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)] forState:UIControlStateNormal 
-                                          barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
-    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    [[UINavigationBar appearanceWhenContainedIn:[MFMailComposeViewController class], nil] setTintColor:nil
+     ];
+    
+    
+    
+    
+    
+//    [[UIBarButtonItem appearance] setTintColor:[UIColor clearColor]];
+    
+//    [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bar_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)] forState:UIControlStateNormal 
+//                                          barMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
+    //removed configurator - RMV_SHK
+//    DefaultSHKConfigurator *configurator = [[YUShareKitConfigurator alloc] init];
+//    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
     
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     if(!iPad){
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:NULL];
         SplashScreenViewController *splashScreenViewController = (SplashScreenViewController *)[story instantiateViewControllerWithIdentifier:@"SplashScreenViewController"];  
+        
         self.window.rootViewController = splashScreenViewController;
     }
 
@@ -172,7 +188,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *dbVersion = [defaults stringForKey:@"dbVersion"];
-        if (dbVersion && ([dbVersion isEqualToString:@"1.2"])) {
+        if (dbVersion && ([dbVersion isEqualToString:@"1.4"])) {
             NSLog(@"Database up to date");
         } else {
             NSLog(@"Needs upgrading");
@@ -227,12 +243,12 @@
                 }
             }
             [newManagedObjectContext save:nil];
-            [defaults setObject:@"1.2" forKey:@"dbVersion"];
+            [defaults setObject:@"1.3" forKey:@"dbVersion"];
         }
     } else {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
         [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:nil];
-        [defaults setObject:@"1.2" forKey:@"dbVersion"];
+        [defaults setObject:@"1.3" forKey:@"dbVersion"];
     }
     [defaults synchronize];
 
@@ -260,10 +276,11 @@
 
 - (BOOL)handleOpenURL:(NSURL*)url
 {
-    NSString* scheme = [url scheme];
-    NSString* prefix = [NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)];
-    if ([scheme hasPrefix:prefix])
-        return [SHKFacebook handleOpenURL:url];
+    //NSString* scheme = [url scheme];
+    //NSString* prefix = [NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)];
+    //no longer has function (find a replacement ADM_EDT
+//    if ([scheme hasPrefix:prefix])
+//        return [SHKFacebook handleOpenURL:url];
     return YES;
 }
 

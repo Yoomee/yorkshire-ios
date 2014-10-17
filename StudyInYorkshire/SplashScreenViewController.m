@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hideSplashScreen) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hideSplashScreen) userInfo:nil repeats:NO];
 }
 
 - (void)viewDidUnload

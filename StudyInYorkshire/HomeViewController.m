@@ -26,7 +26,7 @@
 - (void)awakeFromNib
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+        self.preferredContentSize = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
 }
@@ -143,20 +143,22 @@
     if (_page == nil) {
         self.page = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
     }
+    
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 250, 126)];
     label.text = @"Study at Universities in Yorkshire, UK";
-    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     label.numberOfLines = 0;
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.font = titleFont;
     label.layer.masksToBounds = NO;
     label.layer.shadowColor = [UIColor blackColor].CGColor;
     label.layer.shadowOpacity = 0.5;
     label.layer.shadowRadius = 10;
     label.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-    [self.view addSubview:label];
+    [self.scrollView addSubview:label];
     
     titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
     NSUInteger count = 0;
@@ -173,11 +175,11 @@
         button.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 98, 220, 24)];
-        label.lineBreakMode = UILineBreakModeWordWrap;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor whiteColor];
         label.numberOfLines = 0;
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.font = titleFont;
         label.text = childPage.title;
         
@@ -185,10 +187,29 @@
         imageView.image = childPage.headerImage;
         [button addSubview:imageView];
         [button addSubview:label];
-        [self.view addSubview:button];
+        [self.scrollView addSubview:button];
         count ++;
     };
-    [self.view setBackgroundColor:_page.backgroundColor];
+    
+    UIButton *tourButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 250, 128)];
+    tourButton.backgroundColor = [UIColor yellowColor];
+    
+    [self.scrollView setBackgroundColor:_page.backgroundColor];
+}
+
+- (IBAction)didPressTourButton:(UIButton *)sender
+{
+    Page *tourPage = [self page:self.page fetchChildPageWithTitle:@"Tour de Yorkshire"];
+    
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.tabBarController.viewControllers];
+    [viewControllers removeObjectAtIndex:0];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:NULL];
+    UISplitViewController *splitViewController = [story instantiateViewControllerWithIdentifier:@"SplitViewController"];
+    PageViewController *pageViewController = (PageViewController *)[[splitViewController.viewControllers objectAtIndex:0] topViewController];
+    pageViewController.page = tourPage.parent;
+    [pageViewController didPressPageButton:sender];
+    [viewControllers insertObject:splitViewController atIndex:0];
+    [self.tabBarController setViewControllers:viewControllers];
 }
 
 -(IBAction) didPressPageButton:(id)sender{
@@ -225,14 +246,16 @@
             [UIView setAnimationBeginsFromCurrentState:YES];
         }
         int count = 0;
-        for(int i=0;i < self.view.subviews.count; i++){
-            UIView *subView = [self.view.subviews objectAtIndex:i];
+        for(int i=0;i < self.scrollView.subviews.count; i++){
+            UIView *subView = [self.scrollView.subviews objectAtIndex:i];
                 CGRect frame = subView.frame;
                 frame.origin.x = padding + ((count)%cols)*(frame.size.width + padding);
                 frame.origin.y = padding + ((count)/cols)*(frame.size.height + padding);
                 [subView setFrame:frame];
                 count++;
         }
+        
+        
         if(animated){
             [UIView commitAnimations];
         }
@@ -243,6 +266,32 @@
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     [self layoutTilesForInterfaceOrientation:toInterfaceOrientation animated:YES];
     
+}
+
+
+// HELPER FUNCTION
+// Recursive look into the page's sortedChildren to find a page with a certain title
+-(Page *)page:(Page *)page fetchChildPageWithTitle:(NSString *)title
+{
+    Page *childPage = nil;
+    Page *foundPage = nil;
+    
+    for ( childPage in page.sortedChildren)
+    {
+        if([childPage.title isEqualToString:title])
+            return childPage;
+        
+        if([childPage.sortedChildren count] > 0 )
+        {
+            foundPage = [self page:childPage fetchChildPageWithTitle:title];
+            
+            if(foundPage != nil)
+            {
+                return foundPage;
+            }
+        }
+    }
+    return nil;
 }
 
 @end

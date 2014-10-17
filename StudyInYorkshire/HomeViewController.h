@@ -17,5 +17,9 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+@property (strong, nonatomic) IBOutlet UIView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *tourButton;
+
+- (IBAction)didPressTourButton:(UIButton *)sender;
 -(IBAction)didPressPageButton:(id)sender;
 @end

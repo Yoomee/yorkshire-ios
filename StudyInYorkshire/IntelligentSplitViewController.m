@@ -46,11 +46,22 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    
 	//debug_NSLog(@"IntelligentSplitViewController loaded: %@", self.title);
 }
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
+    @try {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+    @catch (NSException * e) {
+        NSLog(@"IntelligentSplitViewController DE-OBSERVING CRASHED: %@ ... error:%@", self.title, [e description]);
+    }
+    
     [super didReceiveMemoryWarning];
 }
 
@@ -61,16 +72,16 @@
 }
 
 
-- (void)dealloc {
-	@try {
-		[[NSNotificationCenter defaultCenter] removeObserver:self];
-	}
-	@catch (NSException * e) {
-		NSLog(@"IntelligentSplitViewController DE-OBSERVING CRASHED: %@ ... error:%@", self.title, [e description]);
-	}
-
-	[super dealloc];
-}
+//- (void)dealloc {
+//	@try {
+//		[[NSNotificationCenter defaultCenter] removeObserver:self];
+//	}
+//	@catch (NSException * e) {
+//		NSLog(@"IntelligentSplitViewController DE-OBSERVING CRASHED: %@ ... error:%@", self.title, [e description]);
+//	}
+//
+//	[super dealloc];
+//}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -116,29 +127,30 @@
 									navigationItem] rightBarButtonItem];
 #endif
 		
-		if (UIInterfaceOrientationIsPortrait(toOrientation)) {
-			if (theDelegate && [theDelegate respondsToSelector:@selector(splitViewController:willHideViewController:withBarButtonItem:forPopoverController:)]) {
-
-				@try {
-					UIPopoverController *popover = [super valueForKey:@"_hiddenPopoverController"];
-					objc_msgSend(theDelegate, @selector(splitViewController:willHideViewController:withBarButtonItem:forPopoverController:), self, master, button, popover);
-				}
-				@catch (NSException * e) {
-					NSLog(@"There was a nasty error while notifyng splitviewcontrollers of an orientation change: %@", [e description]);
-				}
-			}
-		}
-		else if (UIInterfaceOrientationIsLandscape(toOrientation)) {
-			if (theDelegate && [theDelegate respondsToSelector:@selector(splitViewController:willShowViewController:invalidatingBarButtonItem:)]) {
-				@try {
-					objc_msgSend(theDelegate, @selector(splitViewController:willShowViewController:invalidatingBarButtonItem:), self, master, button);
-				}
-				@catch (NSException * e) {
-					NSLog(@"There was a nasty error while notifyng splitviewcontrollers of an orientation change: %@", [e description]);
-				}
-			}
-		}
-	}
+        //Removed due to weird parameters error - RMV_SHK
+//		if (UIInterfaceOrientationIsPortrait(toOrientation)) {
+//			if (theDelegate && [theDelegate respondsToSelector:@selector(splitViewController:willHideViewController:withBarButtonItem:forPopoverController:)]) {
+//
+//				@try {
+//					UIPopoverController *popover = [super valueForKey:@"_hiddenPopoverController"];
+//					objc_msgSend(theDelegate, @selector(splitViewController:willHideViewController:withBarButtonItem:forPopoverController:), self, master, button, popover);
+//				}
+//				@catch (NSException * e) {
+//					NSLog(@"There was a nasty error while notifyng splitviewcontrollers of an orientation change: %@", [e description]);
+//				}
+//			}
+//		}
+//		else if (UIInterfaceOrientationIsLandscape(toOrientation)) {
+//			if (theDelegate && [theDelegate respondsToSelector:@selector(splitViewController:willShowViewController:invalidatingBarButtonItem:)]) {
+//				@try {
+//					objc_msgSend(theDelegate, @selector(splitViewController:willShowViewController:invalidatingBarButtonItem:), self, master, button);
+//				}
+//				@catch (NSException * e) {
+//					NSLog(@"There was a nasty error while notifyng splitviewcontrollers of an orientation change: %@", [e description]);
+//				}
+//			}
+//		}
+    }
 	
 	//debug_NSLog(@"MINE WillRotate ---- sender = %@  to = %d   from = %d", [sender class], toOrientation, fromOrientation);
 }
