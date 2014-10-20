@@ -724,7 +724,7 @@
 				ORGANIZATIONNAME = Yoomee;
 				TargetAttributes = {
 					5BDE08A0166F61AC007438DD = {
-						DevelopmentTeam = 5Z9NW9XEC3;
+						DevelopmentTeam = F9G6CJLXEP;
 					};
 				};
 			};
