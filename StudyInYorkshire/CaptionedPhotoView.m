@@ -80,8 +80,29 @@ static UIEdgeInsets kWellPadding = {0}; // see +initialize
 //    CGSize labelSize = [self.captionLabel.text sizeWithFont:self.captionLabel.font
 //                                           constrainedToSize:CGSizeMake(availableWidth, CGFLOAT_MAX)
 //                                               lineBreakMode:self.captionLabel.lineBreakMode];
-    CGRect boundingRect = [self.captionLabel.text boundingRectWithSize:CGSizeMake(availableWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil];
-    CGSize labelSize = boundingRect.size;
+//    CGRect boundingRect = [self.captionLabel.text boundingRectWithSize:CGSizeMake(availableWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil];
+//    CGSize labelSize = boundingRect.size;
+    
+    
+    //ADAM - calculating constrained size: Replaced due to deprecated function.
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:self.captionLabel.text attributes:@{NSFontAttributeName: self.captionLabel.font, NSParagraphStyleAttributeName : paragraphStyle}];
+    
+    
+    
+    //[attributedText setAttributes:@{NSParagraphStyleAttributeName:paragraphStyle} range:NSMakeRange(0, attributedText.length)];
+    
+    
+    
+    CGRect rect = [attributedText boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                               context:nil];
+    
+    CGSize labelSize = rect.size;
+    
+    
     
     
     CGFloat wellHeight = labelSize.height + kWellPadding.top + kWellPadding.bottom;
