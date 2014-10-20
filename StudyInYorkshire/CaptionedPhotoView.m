@@ -47,8 +47,8 @@ static UIEdgeInsets kWellPadding = {0}; // see +initialize
         
         _captionLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _captionLabel.backgroundColor = [UIColor clearColor];
-        _captionLabel.textAlignment = UITextAlignmentCenter;
-        _captionLabel.lineBreakMode = UILineBreakModeTailTruncation;
+        _captionLabel.textAlignment = NSTextAlignmentCenter;
+        _captionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _captionLabel.numberOfLines = 0;
         _captionLabel.font = [UIFont systemFontOfSize:14];
         _captionLabel.textColor = [UIColor whiteColor];
@@ -77,9 +77,13 @@ static UIEdgeInsets kWellPadding = {0}; // see +initialize
     
     CGFloat availableWidth = self.bounds.size.width - kWellPadding.left - kWellPadding.right;
     
-    CGSize labelSize =  [self.captionLabel.text sizeWithFont:self.captionLabel.font
-                                           constrainedToSize:CGSizeMake(availableWidth, CGFLOAT_MAX)
-                                               lineBreakMode:self.captionLabel.lineBreakMode];
+//    CGSize labelSize = [self.captionLabel.text sizeWithFont:self.captionLabel.font
+//                                           constrainedToSize:CGSizeMake(availableWidth, CGFLOAT_MAX)
+//                                               lineBreakMode:self.captionLabel.lineBreakMode];
+    CGRect boundingRect = [self.captionLabel.text boundingRectWithSize:CGSizeMake(availableWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil];
+    CGSize labelSize = boundingRect.size;
+    
+    
     CGFloat wellHeight = labelSize.height + kWellPadding.top + kWellPadding.bottom;
     self.captionWell.frame = CGRectMake(0, self.bounds.size.height - wellHeight - NIToolbarHeightForOrientation(NIInterfaceOrientation()) + 44,
                                         self.bounds.size.width, wellHeight);

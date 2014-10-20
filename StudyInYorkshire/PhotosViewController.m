@@ -149,7 +149,7 @@
     if([segue.identifier isEqualToString:@"showPhoto"]){
         PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
         [photoViewController setPhotos:[[self fetchedResultsController] fetchedObjects]];
-        [photoViewController setCenterPageIdx:[sender tag] - 1];
+        [photoViewController setCenterPageIdx:[sender tag] - 1.0];
     }
 }
 

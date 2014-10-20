@@ -43,6 +43,8 @@
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+    
+    
     if(_photoAlbumScrollView == nil){
         NIPhotoAlbumScrollView *photoAlbumScrollView = [[NIPhotoAlbumScrollView alloc] initWithFrame:self.view.bounds];
         photoAlbumScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -84,7 +86,8 @@
 #pragma mark NIPhotoAlbumScrollViewDataSource
 
 
-- (NSInteger)numberOfPagesInPagingScrollView:(NIPhotoAlbumScrollView *)photoScrollView {
+- (NSInteger)numberOfPagesInPagingScrollView:(NIPhotoAlbumScrollView *)photoScrollView
+{
     return [self.photos count];
 }
 
@@ -93,7 +96,8 @@
                      photoAtIndex: (NSInteger)photoIndex
                         photoSize: (NIPhotoScrollViewPhotoSize *)photoSize
                         isLoading: (BOOL *)isLoading
-          originalPhotoDimensions: (CGSize *)originalPhotoDimensions {
+          originalPhotoDimensions: (CGSize *)originalPhotoDimensions
+{
     *photoSize = NIPhotoScrollViewPhotoSizeThumbnail;
     Photo *photo = [self.photos objectAtIndex:photoIndex];
     return photo.image;

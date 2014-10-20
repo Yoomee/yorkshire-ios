@@ -22,7 +22,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 1024.0);
+        self.preferredContentSize = CGSizeMake(320.0, 1024.0);
     }
     [super awakeFromNib];
 }
@@ -66,7 +66,7 @@
     UILabel *noFavourites = [[UILabel alloc]initWithFrame:self.view.frame];
     noFavourites.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     noFavourites.text = @"You haven't added\nany favourites yet";
-    [noFavourites setTextAlignment:UITextAlignmentCenter];
+    [noFavourites setTextAlignment:NSTextAlignmentCenter];
     [noFavourites setNumberOfLines:2];
     [noFavourites setBackgroundColor:[UIColor clearColor]];
     [noFavourites setTextColor:[UIColor whiteColor]];
@@ -87,7 +87,7 @@
     BOOL iPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) ? NO : YES;
     [super viewWillAppear:animated];
     if(iPad){
-        UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
+        //UIFont *titleFont = [UIFont fontWithName:@"Palatino-Bold" size:21.0];
         CGRect rect = CGRectMake(0, 0, 1, 1);
         UIGraphicsBeginImageContext(rect.size);
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -98,7 +98,7 @@
         UINavigationBar *navBar = self.navigationController.navigationBar;
         [navBar setBarStyle:UIBarStyleBlackTranslucent];
         [navBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
-        [navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleFont,UITextAttributeFont, [UIColor colorWithWhite:0 alpha:0], UITextAttributeTextShadowColor,nil]];
+        //[navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleFont,NSFontAttributeName, [UIColor colorWithWhite:0 alpha:0], UITextAttributeTextShadowColor,nil]];
     } else {
       [self.navigationController.navigationBar setHidden:YES];
     }

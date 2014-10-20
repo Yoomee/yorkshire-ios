@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <MessageUI/MessageUI.h>
 
 @class Page;
 
@@ -25,6 +26,7 @@
 -(IBAction)didPressBackButton:(id)sender;
 
 - (void)setPage:(Page *)newPage hidePopover:(BOOL)hidePopover;
+- (void)refreshButtons;
 
 @property (weak, nonatomic) UIButton *favouriteButton;
 @property (weak, nonatomic) UIWebView *webView;
