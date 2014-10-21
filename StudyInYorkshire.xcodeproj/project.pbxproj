@@ -319,7 +319,7 @@
 		66A75F3619E424CE009154B9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		66A75F3819E42D5B009154B9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		66B72BD919F1222C00518E3F /* Oswald-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oswald-Regular.otf"; path = "StudyInYorkshire/Fonts/Oswald-Regular.otf"; sourceTree = "<group>"; };
-		66B72BDA19F1223100518E3F /* Oswald-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oswald-Bold.otf"; path = "/Users/kieran/Documents/IOS_Native/yorkshire-ios/StudyInYorkshire/Fonts/Oswald-Bold.otf"; sourceTree = "<absolute>"; };
+		66B72BDA19F1223100518E3F /* Oswald-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oswald-Bold.otf"; path = "StudyInYorkshire/Fonts/Oswald-Bold.otf"; sourceTree = SOURCE_ROOT; };
 		66B72BDD19F1284800518E3F /* tour-bike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tour-bike.png"; sourceTree = "<group>"; };
 		66C66F1019E588CE005ACD48 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -986,7 +986,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yoomee (F9G6CJLXEP)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1013,21 +1014,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/kieran/Documents/FacebookSDK,
-					"$(PROJECT_DIR)/ShareKit/Frameworks",
-					"$(PROJECT_DIR)/ShareKit/Frameworks/Pinterest.embeddedframework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StudyInYorkshire/StudyInYorkshire-Prefix.pch";
 				INFOPLIST_FILE = "StudyInYorkshire/StudyInYorkshire-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ShareKit/Submodules/buffer-ios-sdk/BufferSDK",
-					"$(PROJECT_DIR)/ShareKit/Submodules/evernote-ios-sdk/UnitTests/3rdParty/OCMock",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1036,7 +1028,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "ShareKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1046,23 +1037,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/kieran/Documents/FacebookSDK,
-					"$(PROJECT_DIR)/ShareKit/Frameworks",
-					"$(PROJECT_DIR)/ShareKit/Frameworks/Pinterest.embeddedframework",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StudyInYorkshire/StudyInYorkshire-Prefix.pch";
 				INFOPLIST_FILE = "StudyInYorkshire/StudyInYorkshire-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ShareKit/Submodules/buffer-ios-sdk/BufferSDK",
-					"$(PROJECT_DIR)/ShareKit/Submodules/evernote-ios-sdk/UnitTests/3rdParty/OCMock",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1071,7 +1053,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "ShareKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
