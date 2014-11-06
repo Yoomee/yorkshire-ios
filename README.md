@@ -15,9 +15,9 @@ git submodule update
 
 Then open 'StudyInYorkshire.xcodeproj' in XCode.
 
-##App Development Guide
+## App Development Guide
 
-###Storyboards
+### Storyboards
 
 **Overview**
 
