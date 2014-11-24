@@ -301,7 +301,7 @@
     
     if([_page.children count] > 0)
     {
-        __block float offset = 16;
+        __block float offset = 36;
         NSUInteger count = 0;
         for(id object in _page.sortedChildren)
         {
