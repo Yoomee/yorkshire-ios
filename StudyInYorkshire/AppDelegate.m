@@ -188,7 +188,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([fileManager fileExistsAtPath:[storeURL path]]) {
         NSString *dbVersion = [defaults stringForKey:@"dbVersion"];
-        if (dbVersion && ([dbVersion isEqualToString:@"1.3"])) {
+        if (dbVersion && ([dbVersion isEqualToString:@"1.4"])) {
             NSLog(@"Database up to date");
         } else {
             NSLog(@"Needs upgrading");
@@ -243,12 +243,12 @@
                 }
             }
             [newManagedObjectContext save:nil];
-            [defaults setObject:@"1.3" forKey:@"dbVersion"];
+            [defaults setObject:@"1.4" forKey:@"dbVersion"];
         }
     } else {
         NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"StudyInYorkshire" ofType:@"sqlite"];
         [fileManager copyItemAtPath:defaultStorePath toPath:[storeURL path] error:nil];
-        [defaults setObject:@"1.3" forKey:@"dbVersion"];
+        [defaults setObject:@"1.4" forKey:@"dbVersion"];
     }
     [defaults synchronize];
 
@@ -259,7 +259,7 @@
     {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
-    }    
+    }
     
     return __persistentStoreCoordinator;
 }
