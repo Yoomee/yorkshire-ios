@@ -75,7 +75,7 @@ static UIEdgeInsets kWellPadding = {0}; // see +initialize
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat availableWidth = self.bounds.size.width - kWellPadding.left - kWellPadding.right;
+//    CGFloat availableWidth = self.bounds.size.width - kWellPadding.left - kWellPadding.right;
     
 //    CGSize labelSize = [self.captionLabel.text sizeWithFont:self.captionLabel.font
 //                                           constrainedToSize:CGSizeMake(availableWidth, CGFLOAT_MAX)
